@@ -39,5 +39,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>API_BASE_URL_ENDPOINT</key>
+	<string>dl.dropboxusercontent.com</string>
 </dict>
 </plist>

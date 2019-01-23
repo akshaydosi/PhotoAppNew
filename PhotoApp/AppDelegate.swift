@@ -1,11 +1,11 @@
-//
-//  AppDelegate.swift
-//  PhotoApp
-//
-//  Created by CTS_MacBookPro on 22/01/19.
-//  Copyright © 2019 Cognizant. All rights reserved.
-//
-
+///**
+/*
+ FileName : AppDelegate
+ Description : The main entry point for the application
+ Copyright : Copyright © 2018 Cognizant. All rights reserved.
+ Created Date : 01/22/19
+ =============================================================================
+ */
 import UIKit
 
 @UIApplicationMain
@@ -15,7 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        ///Since we removed the Main Storyboard : set the initial view controller as Root View
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        ///To avoid a crash : we are setting the root view via code to default viewcontroller
+        window?.rootViewController = ViewController()
+        
         return true
     }
 

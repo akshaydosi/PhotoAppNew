@@ -37,30 +37,6 @@ class APIBase: NSObject {
     // MARK: Response parser
     func parseAPIResponse(response: Dictionary<String, AnyObject>?) {
         if response != nil {
-           /* let statusDict = response?[APIConstants.GeneralApiKey.APIKeyStatus] as? Dictionary<String,AnyObject>
-            if(statusDict != nil){
-                // If api request got time out, only message will come in response
-                errorMessage = statusDict?[APIConstants.GeneralApiKey.APIKeyErrorMessage] as? String ?? ""
-                
-                
-                statusCode = statusDict?[APIConstants.GeneralApiKey.APIKeyStatusCode] as? Int
-                if  ((errorMessage == "")&&(statusCode == 200)) {
-                    
-                    
-                    if (response?[APIConstants.GeneralApiKey.APIKeyResponseData]) == nil{
-                        errorMessage = NSLocalizedString(Localization.noDataMsg,  comment: "")
-                        statusCode = APIConstants.ErrorCode.UnknownErrorCode
-                    }
-                    
-                    
-                }
-                
-                
-            }
-            else{
-                errorMessage = NSLocalizedString(Localization.UnKnownError, comment: "")
-                statusCode = APIConstants.ErrorCode.UnknownErrorCode
-            }*/
         }
         else{
             //errorMessage = NSLocalizedString(Localization.UnKnownError, comment: "")
@@ -106,6 +82,7 @@ class APIBase: NSObject {
     func isJSONRequest() -> Bool {
         return false
     }
+    
     func showHttpErrorAlert(message : String) {
         let activeVc = UIApplication.shared.keyWindow?.rootViewController
         let action = UIAlertAction(title: NSLocalizedString("OK",comment: ""), style: UIAlertAction.Style.default, handler: nil)

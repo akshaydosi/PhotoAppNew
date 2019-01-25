@@ -34,12 +34,11 @@ class PhotoAPi: APIBase {
     }
     // MARK: Response parser
     override func parseAPIResponse(response: Dictionary<String, AnyObject>?) {
-        print(response)
+        //print(response)
         
         super.parseAPIResponse(response: response)
         
         var array = [RowsData]()
-        print("error")
         guard   (response != nil ) else{
             return;
         }
@@ -55,9 +54,11 @@ class PhotoAPi: APIBase {
                 
             }
             
-            print("The value in the Array is -> ",array)
-            
-            model.rowsData = array
+            let filterData = array.filter {($0.titleStr! != "") ||
+                                            ($0.descriptionStr! != "") ||
+                                            ($0.linkStr! != "")
+            }
+            model.rowsData = filterData
         }
     }
 }

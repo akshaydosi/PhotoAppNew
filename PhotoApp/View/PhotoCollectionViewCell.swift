@@ -403,7 +403,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
 */
 
-    let likesLabel: UILabel = {
+    let photoTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.black
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -411,36 +411,32 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.textAlignment = .center
-        label.backgroundColor = .orange
+        //label.backgroundColor = .orange
         
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let showCaseImageView1: UIImageView = {
+    
+    let photoImgView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor.green
-        //imageView.image = UIImage(named: "phone")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
-    let likesLabel1: UILabel = {
+    let photoDescription: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.lightGray
         label.font = UIFont.systemFont(ofSize: 14)
        // label.text = " Description 424 likes ABCD EFGH IJKL MNOP 424 likes ABCD EFGH IJKL MNOP 424 likes ABCD EFGH IJKL MNOP 424 likes ABCD EFGH IJKL MNOP"
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        
+        label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.backgroundColor = .black
+        //label.backgroundColor = .black
         return label
     }()
-    
-    
-    
+
     let topSeparatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.darkGray
@@ -454,14 +450,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
-  
-    
-    
-    
-    
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -483,61 +471,28 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 //        addSubview(showCaseImageView)
       
         
-        addSubview(likesLabel1)
-        addSubview(showCaseImageView1)
-        addSubview(likesLabel)
+        addSubview(photoDescription)
+        addSubview(photoImgView)
+        addSubview(photoTitle)
         
         addSubview(topSeparatorView)
 //        addSubview(bottomSeparatorView)
-//
-//        // Stack View
-//        addSubview(likeButton)
-//        addSubview(messageButton)
-//        addSubview(hireButton)
-//        addSubview(stackView)
         
+        photoTitle.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        photoTitle.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 0).isActive = true
+        photoTitle.rightAnchor.constraint(equalTo: self.rightAnchor,constant: 0).isActive = true
         
-     /*   profileImageButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-        profileImageButton.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        profileImageButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
-        profileImageButton.widthAnchor.constraint(equalToConstant: 36).isActive = true
+        photoImgView.topAnchor.constraint(equalTo: photoTitle.bottomAnchor, constant: 10).isActive = true
+        photoImgView.leftAnchor.constraint(equalTo:  self.leftAnchor,constant: 0).isActive = true
+        photoImgView.rightAnchor.constraint(equalTo: self.rightAnchor,constant: 0).isActive = true
+         photoImgView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         
-        nameLabel.leftAnchor.constraint(equalTo: profileImageButton.rightAnchor, constant: 5).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: profileImageButton.centerYAnchor, constant: -8).isActive = true
-        nameLabel.rightAnchor.constraint(equalTo: pricePerHourLabel.leftAnchor).isActive = true
-        
-        distanceLabel.leftAnchor.constraint(equalTo: nameLabel.leftAnchor).isActive = true
-        distanceLabel.centerYAnchor.constraint(equalTo: profileImageButton.centerYAnchor, constant: 8).isActive = true
-        distanceLabel.widthAnchor.constraint(equalToConstant: 300)
-        
-        pricePerHourLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
-        pricePerHourLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor).isActive = true
-        
-        // Distance depeneded on the priceLabel and distance Label
-        ratingLabel.rightAnchor.constraint(equalTo: pricePerHourLabel.rightAnchor).isActive = true
-        ratingLabel.centerYAnchor.constraint(equalTo: distanceLabel.centerYAnchor).isActive = true
-        
-        showCaseImageView.topAnchor.constraint(equalTo: profileImageButton.bottomAnchor, constant: 10).isActive = true
-        showCaseImageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        showCaseImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
-        */
-        
-        
-        likesLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        likesLabel.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 0).isActive = true
-        likesLabel.rightAnchor.constraint(equalTo: self.rightAnchor,constant: 0).isActive = true
-        
-        showCaseImageView1.topAnchor.constraint(equalTo: likesLabel.bottomAnchor, constant: 10).isActive = true
-        showCaseImageView1.leftAnchor.constraint(equalTo:  self.leftAnchor,constant: 0).isActive = true
-        showCaseImageView1.rightAnchor.constraint(equalTo: self.rightAnchor,constant: 0).isActive = true
-         showCaseImageView1.heightAnchor.constraint(equalToConstant: 120).isActive = true
-        
-        likesLabel1.topAnchor.constraint(equalTo: showCaseImageView1.bottomAnchor, constant: 10).isActive = true
-        likesLabel1.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 0).isActive = true
-        likesLabel1.rightAnchor.constraint(equalTo: self.rightAnchor,constant: 0).isActive = true
+        photoDescription.topAnchor.constraint(equalTo: photoImgView.bottomAnchor, constant: 10).isActive = true
+        photoDescription.leftAnchor.constraint(equalTo: self.leftAnchor,constant: 0).isActive = true
+        photoDescription.rightAnchor.constraint(equalTo: self.rightAnchor,constant: 0).isActive = true
       
         
-        topSeparatorView.topAnchor.constraint(equalTo: likesLabel1.bottomAnchor, constant: 10).isActive = true
+        topSeparatorView.topAnchor.constraint(equalTo: photoDescription.bottomAnchor, constant: 10).isActive = true
         topSeparatorView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         topSeparatorView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
            topSeparatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true

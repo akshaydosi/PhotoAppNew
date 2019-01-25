@@ -17,10 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ///Since we removed the Main Storyboard : set the initial view controller as Root View
         window = UIWindow(frame: UIScreen.main.bounds)
-        
         navController = UINavigationController()
-       // let defaultFlow = UICollectionViewFlowLayout()
-       // let customCollectionVC = PhotoCollectionCollectionViewController(collectionViewLayout:defaultFlow)
         
         let vcController = PhotoCollectionCollectionViewController()
         

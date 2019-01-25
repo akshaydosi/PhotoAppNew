@@ -26,9 +26,9 @@ class APIManager {
     // MARK : Initialize API Request
     func initiateRequest(_ apiObject: APIBase,
                          apiRequestCompletionHandler:@escaping ResponseHandler) {
-        var urlString = apiObject.urlForRequest()
+         /*var urlString = apiObject.urlForRequest()
         urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-        
+       
         if apiObject.isMultipartRequest() == true  {
             var urlString = apiObject.urlForRequest()
             urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -62,7 +62,16 @@ class APIManager {
             let request = Alamofire.request(urlString, method: apiObject.requestType(), parameters: apiObject.requestParameter(), encoding: ((apiObject.isJSONRequest() == true) ? JSONEncoding.default : URLEncoding.default), headers: apiObject.customHTTPHeaders())
             
             self.requestCompleted(request, apiObject: apiObject,apiRequestCompletionHandler: apiRequestCompletionHandler)
-        }
+        }*/
+        
+        var urlString = apiObject.urlForRequest()
+        urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        
+        let request = Alamofire.request(urlString, method: apiObject.requestType(),
+                                        parameters: apiObject.requestParameter(),
+                                        encoding: ((apiObject.isJSONRequest() == true) ? JSONEncoding.default : URLEncoding.default), headers: apiObject.customHTTPHeaders())
+        
+        self.requestCompleted(request, apiObject: apiObject,apiRequestCompletionHandler: apiRequestCompletionHandler)
         
     }
     
@@ -77,9 +86,9 @@ class APIManager {
             // Mannual parsing
             request.responseData { [unowned self] response in
                 if let data = response.result.value {
-                    self.serializeAPIResponse(apiObject, response: data as Data?, apiRequestCompletionHandler: apiRequestCompletionHandler) {
+                    self.serializeAPIResponse(apiObject, response: data as Data?,
+                                              apiRequestCompletionHandler: apiRequestCompletionHandler) {
                         [unowned self, request, apiObject] responseDictionary in
-                        
                     }
                 } else {
                     if (response.error as NSError?) != nil {
@@ -98,9 +107,6 @@ class APIManager {
         }
     }
     
-    
-    
-  
     
     // MARK: Response serializer
     func serializeAPIResponse(_ apiObject: APIBase, response: Data?, apiRequestCompletionHandler:ResponseHandler, serializerCompletionHandler: ((Dictionary<String, AnyObject>) -> Void)?) {

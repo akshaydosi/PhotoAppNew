@@ -10,7 +10,7 @@ import UIKit
 
 class PhotoCollectionViewFlowLayout: UICollectionViewFlowLayout {
     let innerSpace: CGFloat = 1.0
-    let numberOfCellsOnRow: CGFloat = 1
+    let numberOfCellsOnRow: CGFloat = 3
    
     override init() {
         super.init()

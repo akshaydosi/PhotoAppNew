@@ -15,7 +15,7 @@ import Alamofire
 let ItemSpacing : CGFloat = 10.0
 private let reuseIdentifier = "Cell"
 
-class PhotoCollectionCollectionViewController: UIViewController,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource {
+class PhotoCollectionCollectionViewController: UIViewController {
     var gridLayout: PhotoCollectionViewFlowLayout!
     var refreshControl:UIRefreshControl!
     var model : PhotoData?
@@ -55,34 +55,31 @@ class PhotoCollectionCollectionViewController: UIViewController,UICollectionView
         super.viewDidDisappear(animated)
     }
     
-    // MARK:- UICollectionViewDataSource
-    
-     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
     
     
-     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.model?.rowsData?.count ?? 1
-    }
-    
-     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    ///MARK:- Orientation Support
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let rect = self.view.frame.size
+        let width = rect.width - (ItemSpacing * 2)
         
-        // Configure the cell
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCollectionViewCell
-        guard let rowModel = self.model?.rowsData?[indexPath.row] else {
-            return cell
+        let frame =   CGRect(x: ItemSpacing, y: 0, width:width , height: UIScreen.main.bounds.size.height)
+        self.collectionView.frame = frame
+        self.gridLayout.invalidateLayout()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
         }
-        
-        cell.photoTitle.text = rowModel.titleStr
-
-        let urlstr = rowModel.linkStr
-        cell.photoImgView.sd_setImage(with: URL(string:  urlstr!), placeholderImage: UIImage(named: "placeholderImage"))
-        cell.photoDescription.text = rowModel.descriptionStr
-        //cell.backgroundColor = .lightGray
-        return cell
-        
+        flowLayout.invalidateLayout()
     }
+}
+
+    
+
+extension PhotoCollectionCollectionViewController:UICollectionViewDelegateFlowLayout,UICollectionViewDelegate,UICollectionViewDataSource{
     
     private func estimateFrameForText(text: String, font : UIFont) -> CGRect {
         //we make the height arbitrarily large so we don't undershoot height in calculation
@@ -133,26 +130,32 @@ class PhotoCollectionCollectionViewController: UIViewController,UICollectionView
         return CGSize(width: Double(itemWidth), height: totalHeight)
     }
     
-
-    ///MARK:- Orientation Support
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let rect = self.view.frame.size
-        let width = rect.width - (ItemSpacing * 2)
-        
-         let frame =   CGRect(x: ItemSpacing, y: 0, width:width , height: UIScreen.main.bounds.size.height)
-        self.collectionView.frame = frame
-        self.gridLayout.invalidateLayout()
+    // MARK:- UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        flowLayout.invalidateLayout()
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.model?.rowsData?.count ?? 1
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! PhotoCollectionViewCell
+        guard let rowModel = self.model?.rowsData?[indexPath.row] else {
+            return cell
+        }
+        
+        cell.photoTitle.text = rowModel.titleStr
+        
+        let urlstr = rowModel.linkStr
+        cell.photoImgView.sd_setImage(with: URL(string:  urlstr!), placeholderImage: UIImage(named: "placeholderImage"))
+        cell.photoDescription.text = rowModel.descriptionStr
+        return cell
+    }
 }
 
 //MARK:- METHODS
@@ -201,10 +204,7 @@ extension PhotoCollectionCollectionViewController{
     }
     
     func addControls(){
-        let rect = self.view.frame.size
-        let width = rect.width - (ItemSpacing * 2)
         
-        let frame =   CGRect(x: ItemSpacing, y: 60, width:width , height: UIScreen.main.bounds.size.height-60)
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: gridLayout)
         self.collectionView!.dataSource = self
         self.collectionView!.delegate = self

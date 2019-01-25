@@ -1,11 +1,10 @@
-//
-//  APIBase.swift
-//  PhotoApp
-//
-//  Created by CTS_MacBookPro on 23/01/19.
-//  Copyright © 2019 Cognizant. All rights reserved.
-//
-
+/**
+ FileName : APIBase.swift
+ Description : 
+ Copyright : Copyright © 2019 Cognizant. All rights reserved.
+ Created Date : 01/23/19
+ =============================================================================
+ */
 
 import Foundation
 import Alamofire
@@ -39,38 +38,8 @@ class APIBase: NSObject {
         if response != nil {
         }
         else{
-            //errorMessage = NSLocalizedString(Localization.UnKnownError, comment: "")
-            //statusCode = APIConstants.ErrorCode.UnknownErrorCode
+            ///Handle the Parse error
         }
-        
-        validateErrorCode()
-    }
-    func validateErrorCode ()
-    {
-//        if ((statusCode == APIConstants.ErrorCode.InvalidSession)||(statusCode == APIConstants.ErrorCode.UnauthorizedError)){
-//            
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.showAlertForLoginIfRequired(msg: errorMessage)
-//        }
-    }
-    // MARK: Is Multipart Request
-    func isMultipartRequest() -> Bool {
-        return false
-    }
-    
-    // MARK: MultipartData
-    func multipartData(multipartData : MultipartFormData?) {
-        
-    }
-    
-    // MARK: Object Mapper Logic
-    func enableCacheControl() -> Bool {
-        return false
-    }
-    
-    // MARK: Object Mapper Logic
-    func cacheKey() -> String? {
-        return nil
     }
     
     // Add custom headers

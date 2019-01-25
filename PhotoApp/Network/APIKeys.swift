@@ -1,15 +1,16 @@
-//
-//  APIKeys.swift
-//  PhotoApp
-//
-//  Created by CTS_MacBookPro on 23/01/19.
-//  Copyright © 2019 Cognizant. All rights reserved.
-//
+/*
+ FileName : APIKeys.swift
+ Description : This is a structure that is for the configuration part
+ Copyright : Copyright © 2019 Cognizant. All rights reserved.
+ Created Date : 01/23/19
+ =============================================================================
+ */
 
 import Foundation
+
 struct APIConfig {
-    struct  Server{
-        static let Development = "Development"
+    struct  Server{///We can change this implementation via Schemes in Application with different environments ready
+        static let Production = "Production"
     }
     
     //Base URL

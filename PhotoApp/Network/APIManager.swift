@@ -1,11 +1,10 @@
-//
-//  APIManager.swift
-//  PhotoApp
-//
-//  Created by CTS_MacBookPro on 23/01/19.
-//  Copyright © 2019 Cognizant. All rights reserved.
-//
-
+/**
+ FileName : APIManager.swift
+ Description :
+ Copyright : Copyright © 2019 Cognizant. All rights reserved.
+ Created Date : 01/23/19
+ =============================================================================
+ */
 import Foundation
 
 import Alamofire
@@ -21,49 +20,10 @@ class APIManager {
     }
     
     static let rootKey = "Root";
-    static let expireKey = "Expires"
     
     // MARK : Initialize API Request
     func initiateRequest(_ apiObject: APIBase,
                          apiRequestCompletionHandler:@escaping ResponseHandler) {
-         /*var urlString = apiObject.urlForRequest()
-        urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-       
-        if apiObject.isMultipartRequest() == true  {
-            var urlString = apiObject.urlForRequest()
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-            
-            Alamofire.upload(multipartFormData: { (multipartFormData) -> Void in
-                apiObject.multipartData(multipartData: multipartFormData)
-            }, to: urlString,
-               encodingCompletion: { (encodingResult) -> Void in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    upload.responseData(){  [unowned self] response in
-                        if let data = response.result.value {
-                            self.serializeAPIResponse(apiObject, response: data as Data?, apiRequestCompletionHandler: apiRequestCompletionHandler, serializerCompletionHandler: nil)
-                        } else {
-                            apiRequestCompletionHandler(nil,nil)
-                        }
-                    }
-                case .failure(_):
-                    let error = NSError(domain: apiObject.urlForRequest(), code: 404, userInfo: nil)
-                    apiRequestCompletionHandler(nil,error)
-                }
-                
-            })
-            
-            
-        } else {
-            
-            var urlString = apiObject.urlForRequest()
-            urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-            
-            let request = Alamofire.request(urlString, method: apiObject.requestType(), parameters: apiObject.requestParameter(), encoding: ((apiObject.isJSONRequest() == true) ? JSONEncoding.default : URLEncoding.default), headers: apiObject.customHTTPHeaders())
-            
-            self.requestCompleted(request, apiObject: apiObject,apiRequestCompletionHandler: apiRequestCompletionHandler)
-        }*/
-        
         var urlString = apiObject.urlForRequest()
         urlString = urlString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
         

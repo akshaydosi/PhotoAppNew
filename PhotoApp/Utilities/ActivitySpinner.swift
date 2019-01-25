@@ -2,8 +2,8 @@
 /**
  FileName : ActivitySpinner
  Description : shows/hides spinner
- Copyright :
- Created Date :
+ Copyright : Copyright © 2019 Cognizant. All rights reserved.
+ Created Date : 01/23/19
  =============================================================================
  */
 

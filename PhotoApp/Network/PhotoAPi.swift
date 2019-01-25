@@ -53,7 +53,7 @@ class PhotoAPi: APIBase {
                 array.append(rowModel)
                 
             }
-            
+            ///Filter the data : remove nil values from dictionaries
             let filterData = array.filter {($0.titleStr! != "") ||
                                             ($0.descriptionStr! != "") ||
                                             ($0.linkStr! != "")

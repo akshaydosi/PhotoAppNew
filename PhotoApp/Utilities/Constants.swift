@@ -14,4 +14,12 @@ struct Constants{
     static let description = "description"
     static let imageRef = "imageHref"
     static let rowsKey = "rows"
+    
+    static let pullToRefresh = "Pull to refresh"
+    static let placeHolderImage = "placeholderImage"
+    
+    struct DeviceType{
+        static let iPhoneType = "iPhone"
+    }
+    
 }

@@ -15,6 +15,10 @@
 		824ED7C321F8DA5900884EC4 /* PhotoCollectionCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824ED7C221F8DA5900884EC4 /* PhotoCollectionCollectionViewController.swift */; };
 		824ED7C521F8E14500884EC4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824ED7C421F8E14500884EC4 /* PhotoCollectionViewCell.swift */; };
 		824ED7C721F8E25500884EC4 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824ED7C621F8E25500884EC4 /* APIKeys.swift */; };
+		824ED7CB21F8E68C00884EC4 /* PhotoCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824ED7CA21F8E68C00884EC4 /* PhotoCollectionViewFlowLayout.swift */; };
+		824ED7CD21F8E7E900884EC4 /* phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 824ED7CC21F8E7E900884EC4 /* phone.png */; };
+		828B560D21F9FEE5007C5B46 /* ActivitySpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828B560B21F9FEE5007C5B46 /* ActivitySpinner.swift */; };
+		828B560E21F9FEE5007C5B46 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828B560C21F9FEE5007C5B46 /* Constants.swift */; };
 		82B0AB1021F8484B00291F9F /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B0AB0F21F8484B00291F9F /* PhotoData.swift */; };
 		82DCB81721F7882B006ED765 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCB81621F7882B006ED765 /* AppDelegate.swift */; };
 		82DCB81921F7882B006ED765 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCB81821F7882B006ED765 /* ViewController.swift */; };
@@ -43,6 +47,10 @@
 		824ED7C221F8DA5900884EC4 /* PhotoCollectionCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCollectionViewController.swift; sourceTree = "<group>"; };
 		824ED7C421F8E14500884EC4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		824ED7C621F8E25500884EC4 /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		824ED7CA21F8E68C00884EC4 /* PhotoCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		824ED7CC21F8E7E900884EC4 /* phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phone.png; sourceTree = "<group>"; };
+		828B560B21F9FEE5007C5B46 /* ActivitySpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySpinner.swift; sourceTree = "<group>"; };
+		828B560C21F9FEE5007C5B46 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		82B0AB0F21F8484B00291F9F /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
 		82DCB81321F7882B006ED765 /* PhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DCB81621F7882B006ED765 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +115,22 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		828B560921F9FEE5007C5B46 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		828B560A21F9FEE5007C5B46 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				828B560B21F9FEE5007C5B46 /* ActivitySpinner.swift */,
+				828B560C21F9FEE5007C5B46 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		82B0AB0D21F843F000291F9F /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +144,7 @@
 			children = (
 				824ED7C221F8DA5900884EC4 /* PhotoCollectionCollectionViewController.swift */,
 				824ED7C421F8E14500884EC4 /* PhotoCollectionViewCell.swift */,
+				824ED7CA21F8E68C00884EC4 /* PhotoCollectionViewFlowLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -147,6 +172,8 @@
 		82DCB81521F7882B006ED765 /* PhotoApp */ = {
 			isa = PBXGroup;
 			children = (
+				828B560921F9FEE5007C5B46 /* Extensions */,
+				828B560A21F9FEE5007C5B46 /* Utilities */,
 				824ED7BF21F8CF7C00884EC4 /* API */,
 				824ED7B421F8CC4200884EC4 /* Network */,
 				82B0AB0D21F843F000291F9F /* Model */,
@@ -154,6 +181,7 @@
 				82DCB81621F7882B006ED765 /* AppDelegate.swift */,
 				82DCB81821F7882B006ED765 /* ViewController.swift */,
 				82DCB81D21F7882C006ED765 /* Assets.xcassets */,
+				824ED7CC21F8E7E900884EC4 /* phone.png */,
 				82DCB81F21F7882C006ED765 /* LaunchScreen.storyboard */,
 				82DCB82221F7882C006ED765 /* Info.plist */,
 			);
@@ -264,6 +292,7 @@
 			files = (
 				82DCB82121F7882C006ED765 /* LaunchScreen.storyboard in Resources */,
 				82DCB81E21F7882C006ED765 /* Assets.xcassets in Resources */,
+				824ED7CD21F8E7E900884EC4 /* phone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +316,8 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PhotoApp/Pods-PhotoApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TinyConstraints/TinyConstraints.framework",
 			);
@@ -295,6 +326,8 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TinyConstraints.framework",
 			);
@@ -355,7 +388,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				824ED7BE21F8CD3D00884EC4 /* APIManager.swift in Sources */,
+				824ED7CB21F8E68C00884EC4 /* PhotoCollectionViewFlowLayout.swift in Sources */,
 				824ED7C321F8DA5900884EC4 /* PhotoCollectionCollectionViewController.swift in Sources */,
+				828B560D21F9FEE5007C5B46 /* ActivitySpinner.swift in Sources */,
 				82DCB81921F7882B006ED765 /* ViewController.swift in Sources */,
 				824ED7C721F8E25500884EC4 /* APIKeys.swift in Sources */,
 				82DCB81721F7882B006ED765 /* AppDelegate.swift in Sources */,
@@ -363,6 +398,7 @@
 				82B0AB1021F8484B00291F9F /* PhotoData.swift in Sources */,
 				824ED7C121F8CF9100884EC4 /* PhotoAPi.swift in Sources */,
 				824ED7BA21F8CCB900884EC4 /* APIBase.swift in Sources */,
+				828B560E21F9FEE5007C5B46 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,22 +1,16 @@
 ///**
 /*
  FileName : PhotoAPi
- Description : The main entry point for the application
- Copyright : Copyright © 2018 Cognizant. All rights reserved.
+ Description : 
+ Copyright : Copyright © 2019 Cognizant. All rights reserved.
  Created Date : 01/22/19
  =============================================================================
  */
 import UIKit
 import Alamofire
 
-let mainTitle = "title"
-let title = "title"
-let description = "description"
-let imageRef = "imageHref"
-
-
 class PhotoAPi: APIBase {
-    var model = CityModel()
+    var model = PhotoData()
     var errormessage: String?
     
     // MARK: URL
@@ -50,22 +44,22 @@ class PhotoAPi: APIBase {
             return;
         }
         let dict = response
-        model.titleStr = dict!["title"] as? String ?? ""
-        if let rowArray = dict!["rows"] as? [[String:Any]]{
+        model.titleStr = dict![Constants.mainTitle] as? String ?? ""
+        if let rowArray = dict![Constants.rowsKey] as? [[String:Any]]{
             for obj in rowArray{
                 var rowModel = RowsData()
-                rowModel.titleStr = obj["title"] as? String ?? ""
-                rowModel.descriptionStr = obj["description"] as? String ?? ""
-                rowModel.linkStr = obj["imageHref"] as? String ?? ""
+                rowModel.titleStr = obj[Constants.title] as? String ?? ""
+                rowModel.descriptionStr = obj[Constants.description] as? String ?? ""
+                rowModel.linkStr = obj[Constants.imageRef] as? String ?? ""
                 array.append(rowModel)
                 
             }
+            
+            print("The value in the Array is -> ",array)
+            
             model.rowsData = array
         }
     }
-    
-    
-    
 }
 
 

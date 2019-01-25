@@ -8,15 +8,13 @@
  */
 
 import Foundation
-import SwiftyJSON
 
-struct PhotoData:Codable {
-    
-    private struct Keys {
-        static let mainTitle = "title"
-        static let title = "title"
-        static let description = "description"
-        static let imageRef = "imageHref"
-    }
-    
+struct PhotoData{
+    var titleStr : String?
+    var  rowsData : [RowsData]?
+}
+struct RowsData{
+    var titleStr : String?
+    var descriptionStr : String?
+    var linkStr : String?
 }

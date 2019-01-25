@@ -16,25 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ///Since we removed the Main Storyboard : set the initial view controller as Root View
-        
-        print("******ENTERED didFinishLaunchingWithOptions******")
-
-        /*window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        
-        ///To avoid a crash : we are setting the root view via code to default viewcontroller
-        let defaultFlow = UICollectionViewFlowLayout()
-        let customCollectionVC = PhotoCollectionCollectionViewController(collectionViewLayout:defaultFlow)
-        window?.rootViewController = customCollectionVC*/
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         
         navController = UINavigationController()
-        let defaultFlow = UICollectionViewFlowLayout()
-        let customCollectionVC = PhotoCollectionCollectionViewController(collectionViewLayout:defaultFlow)
-
+       // let defaultFlow = UICollectionViewFlowLayout()
+       // let customCollectionVC = PhotoCollectionCollectionViewController(collectionViewLayout:defaultFlow)
         
-        self.navController!.pushViewController(customCollectionVC, animated: false)
+        let vcController = PhotoCollectionCollectionViewController()
+        
+        self.navController!.pushViewController(vcController, animated: false)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
 

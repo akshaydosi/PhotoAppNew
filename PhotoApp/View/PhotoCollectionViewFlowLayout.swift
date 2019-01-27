@@ -1,10 +1,10 @@
-//
-//  PhotoCollectionViewFlowLayout.swift
-//  PhotoApp
-//
-//  Created by CTS_MacBookPro on 23/01/19.
-//  Copyright © 2019 Cognizant. All rights reserved.
-//
+/*
+ FileName : PhotoCollectionViewFlowLayout.swift
+ Description : GridLayout setting
+ Copyright : Copyright © 2019 Cognizant. All rights reserved.
+ Created Date : 01/23/19
+ =============================================================================
+ */
 
 import UIKit
 
@@ -18,9 +18,6 @@ class PhotoCollectionViewFlowLayout: UICollectionViewFlowLayout {
         self.minimumInteritemSpacing = innerSpace
         self.scrollDirection = .vertical
         
-        //let width = UIScreen.main.bounds.size.width
-        
-        //self.estimatedItemSize = CGSize(width:width, height:10)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,7 +38,7 @@ class PhotoCollectionViewFlowLayout: UICollectionViewFlowLayout {
         get {
             let sizes = CGSize(width:355
                 ,height:1000)
-                print("itemSize \(sizes)")
+                //print("itemSize \(sizes)")
             return sizes
         }
     

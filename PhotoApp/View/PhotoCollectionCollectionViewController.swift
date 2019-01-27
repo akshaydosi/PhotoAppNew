@@ -24,8 +24,8 @@ class PhotoCollectionCollectionViewController: UIViewController {
     var collectionView: UICollectionView!
     
     let inset: CGFloat = 10
-    let minimumLineSpacing: CGFloat = 5
-    let minimumInteritemSpacing: CGFloat = 5
+    let minimumLineSpacing: CGFloat = 0
+    let minimumInteritemSpacing: CGFloat = 0
     var cellsPerRow = 0
     
     
@@ -53,6 +53,7 @@ class PhotoCollectionCollectionViewController: UIViewController {
         
         let frame =   CGRect(x: ItemSpacing, y: 0, width:width , height: UIScreen.main.bounds.size.height)
         self.collectionView.frame = frame
+        self.gridLayout.prepare()
         self.gridLayout.invalidateLayout()
     }
     
@@ -188,6 +189,8 @@ extension PhotoCollectionCollectionViewController:UICollectionViewDelegateFlowLa
         cell.photoImgView.sd_setImage(with: URL(string:  urlstr!),
                                       placeholderImage: UIImage(named: Constants.placeHolderImage))
         cell.photoDescription.text = rowModel.descriptionStr
+        cell.backgroundColor = .clear
+        cell.layoutIfNeeded()
         return cell
     }
 }

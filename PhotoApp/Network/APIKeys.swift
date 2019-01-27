@@ -10,7 +10,7 @@ import Foundation
 
 struct APIConfig {
     struct  Server{///We can change this implementation via Schemes in Application with different environments ready
-        static let Production = "Production"
+        static let development = "development"
     }
     
     //Base URL

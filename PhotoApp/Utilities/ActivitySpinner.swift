@@ -131,6 +131,7 @@ final class ContainerView: UIView {
     }
 }
 
+///Used to Show and Hide the Spinner
 final class Spinner {
     
     static func show(in view: UIView? = nil, location: SpinnerLocation = SpinnerLocation.center) {

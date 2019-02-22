@@ -8,6 +8,8 @@
 import UIKit
 import Foundation
 
+typealias ResponseHandler = (AnyObject?, NSError?) -> Void
+
 struct Constants{
     static let mainTitle = "title"
     static let title = "title"
@@ -22,4 +24,18 @@ struct Constants{
         static let iPhoneType = "iPhone"
     }
     
+    static let reuseIdentifier = "PhotoCell"
+
+    struct CollectionViewPaddings{
+        static let top = 10
+        static let bottom = 10
+        static let left = 10
+        static let right = 10
+    }
+    
+    struct CommonErrorMsgs{
+        static let generalMessage = "Some error occured, please try again later."
+    }
 }
+
+

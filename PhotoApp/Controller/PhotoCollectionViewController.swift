@@ -18,7 +18,6 @@ enum CollectionViewConstants{
 }
 
 class PhotoCollectionViewController: UIViewController {
-    var gridLayout: PhotoCollectionViewFlowLayout!
     var refreshControl:UIRefreshControl!
     fileprivate var dataSource: PhotoCollectionDataSource!
 
@@ -28,11 +27,6 @@ class PhotoCollectionViewController: UIViewController {
     //MARK:- VIEW LIFE CYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Spinner.show()
-     
-        self.view.backgroundColor = .white
-        gridLayout = PhotoCollectionViewFlowLayout()
         configureControls()
         getPhotoAlbums()
     }
@@ -51,8 +45,6 @@ class PhotoCollectionViewController: UIViewController {
         
         let frame =   CGRect(x: CollectionViewConstants.ItemSpacing, y: 0, width:width , height: UIScreen.main.bounds.size.height)
         self.collectionView.frame = frame
-        self.gridLayout.prepare()
-        self.gridLayout.invalidateLayout()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -67,16 +59,14 @@ class PhotoCollectionViewController: UIViewController {
 
 //MARK:- General Methods
 extension PhotoCollectionViewController{
-    ///for reloading and setting the title on returing of the data from service
-    func setControls(){
-        self.title = viewModel.screenTitle()///Dynamic Title
-        self.collectionView.reloadData()
-    }
+   
     
     ///adds the main controls as subviews
     func configureControls(){
-        
-        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: gridLayout)
+        self.view.backgroundColor = .white
+        let layout = UICollectionViewFlowLayout()
+      
+        self.collectionView = UICollectionView(frame: .zero,collectionViewLayout: layout)
         self.collectionView.register(PhotoCollectionViewCell.self,
                                      forCellWithReuseIdentifier: Constants.reuseIdentifier)
         self.collectionView.showsVerticalScrollIndicator = false
@@ -108,6 +98,7 @@ extension PhotoCollectionViewController{
     ///
     /// - Handles the status and accordingly shows the error message if any
     func getPhotoAlbums(){
+        Spinner.show()
         viewModel.fetchPhotos(){ [weak self] (status,errorMsg) in
             switch(status){
             case true:
@@ -120,7 +111,11 @@ extension PhotoCollectionViewController{
             }
         }
     }
-    
+    ///for reloading and setting the title on returing of the data from service
+    func setControls(){
+        self.title = viewModel.screenTitle()///Dynamic Title
+        self.collectionView.reloadData()
+    }
     ///Shows the alert in case of any error being returned from the service or response
     func showHttpErrorAlert(message : String) {
         let activeVc = UIApplication.shared.keyWindow?.rootViewController

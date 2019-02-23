@@ -32,6 +32,9 @@ struct Constants{
         static let right = 10
         static let imgPadding:Double = 45.0
         static let insetsPadding:CGFloat = 25.0
+        static let marginNInsetsPadding:Int = 25
+        static let imgHeight:CGFloat = 120.0
+
     }
     
     struct CommonErrorMsgs{

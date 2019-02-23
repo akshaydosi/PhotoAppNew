@@ -17,8 +17,8 @@ enum CollectionViewCellConstants{
 class PhotoCollectionDataSource:NSObject, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate{
     
     let inset: CGFloat = 10
-    let minimumLineSpacing: CGFloat = 0
-    let minimumInteritemSpacing: CGFloat = 0
+   // let minimumLineSpacing: CGFloat = 0
+   // let minimumInteritemSpacing: CGFloat = 0
     var viewModel : PhotoDataViewModel
     
     init(viewModel: PhotoDataViewModel) {
@@ -67,16 +67,17 @@ extension PhotoCollectionDataSource{
         let noOfCellInRow = viewModel.getCellPerRow()
         var marginsAndInsets = 0.0
         if #available(iOS 11.0, *) {
-            marginsAndInsets = Double(Int((inset * 2 + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right +  25 + minimumInteritemSpacing * CGFloat(noOfCellInRow - 1))))
+            marginsAndInsets = Double(Int((inset * 2 + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right +  Constants.CollectionViewPaddings.insetsPadding)))
             
         }else{
-            marginsAndInsets = Double((inset * 2 + 25 + minimumInteritemSpacing * CGFloat(noOfCellInRow - 1)))
+            marginsAndInsets = Double((inset * 2 + Constants.CollectionViewPaddings.insetsPadding))
         }
         
         let boundsWidth = Double(collectionView.bounds.size.width )
         let divideValue = Double((CGFloat(noOfCellInRow)).rounded(.down))
         let itemWidth = ((boundsWidth - marginsAndInsets) / divideValue)
-        let size = CGSize(width: itemWidth - 120, height: Constants.CellFrames.height)
+        let size = CGSize(width: itemWidth - Double(Constants.CollectionViewPaddings.imgHeight),
+                          height: Constants.CellFrames.height)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         let attributes = [NSAttributedString.Key.font: font]
         
@@ -110,11 +111,10 @@ extension PhotoCollectionDataSource{
         var marginsAndInsets : CGFloat = 0.0
         
         if #available(iOS 11.0, *) {
-            marginsAndInsets = CGFloat(inset * 2 + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right + Constants.CollectionViewPaddings.insetsPadding + minimumInteritemSpacing * CGFloat(noOfCellInRow - 1))
+            marginsAndInsets = CGFloat(inset * 2 + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right + Constants.CollectionViewPaddings.insetsPadding )
         } else {
             // Fallback on earlier versions
-            // marginsAndInsets = CGFloat(inset * 2 +  minimumInteritemSpacing * CGFloat(cellsPerRow - 1) + 25)
-            marginsAndInsets = CGFloat(inset * 2 +  minimumInteritemSpacing * CGFloat(noOfCellInRow - 1) + Constants.CollectionViewPaddings.insetsPadding)
+            marginsAndInsets = CGFloat(inset * 2 + Constants.CollectionViewPaddings.insetsPadding)
         }
         let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(noOfCellInRow)).rounded(.down)
         

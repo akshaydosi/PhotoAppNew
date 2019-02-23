@@ -30,13 +30,12 @@ class PhotoCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     override var itemSize: CGSize {
         set {
-            
-            self.itemSize = CGSize(width:355, height:1000)
+            self.itemSize = CGSize(width:Constants.CellFrames.width,
+                                   height:Constants.CellFrames.height)
         }
         get {
-            let sizes = CGSize(width:355
-                ,height:1000)
-                //print("itemSize \(sizes)")
+            let sizes = CGSize(width:Constants.CellFrames.width,
+                               height:Constants.CellFrames.height)
             return sizes
         }
     

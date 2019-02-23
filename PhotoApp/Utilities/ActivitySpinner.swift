@@ -1,7 +1,7 @@
 //**
 /**
  FileName : ActivitySpinner
- Description : shows/hides spinner
+ Description : Custom class for the Activity Indicator
  Copyright : Copyright © 2019 Cognizant. All rights reserved.
  Created Date : 01/23/19
  =============================================================================
@@ -95,7 +95,7 @@ final class ContainerView: UIView {
         
         backgroundView.frame = bounds
     }
-    
+    ///The spinner position on the screen is taken care here.
     func showFrameView() {
         
         layer.removeAllAnimations()
@@ -123,7 +123,7 @@ final class ContainerView: UIView {
         spinner.isAccessibilityElement = true
         //spinner.accessibilityLabel = NSLocalizedString(DisplayableText.processing, comment: DisplayableText.processing)
     }
-    
+    ///stops the animation and hides the spinner
     func hideFrameView() {
         spinner.alpha = 0.0
         isHidden = true
@@ -133,11 +133,11 @@ final class ContainerView: UIView {
 
 ///Used to Show and Hide the Spinner
 final class Spinner {
-    
+    ///shows the activity indicator at the center
     static func show(in view: UIView? = nil, location: SpinnerLocation = SpinnerLocation.center) {
         ActivitySpinner.sharedSpinner.show(in: view, location: location)
     }
-    
+    ///hides the activity indicator
     static func hide() {
         ActivitySpinner.sharedSpinner.hide()
     }

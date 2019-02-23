@@ -12,9 +12,10 @@ import SDWebImage
 import AlamofireImage
 import Alamofire
 
-let ItemSpacing : CGFloat = 10.0
-let cellPerRowIPhone = 1
-let cellPerRowIPad = 3
+
+enum CollectionViewConstants{
+    static let ItemSpacing : CGFloat = 10.0
+}
 
 class PhotoCollectionViewController: UIViewController {
     var gridLayout: PhotoCollectionViewFlowLayout!
@@ -24,22 +25,15 @@ class PhotoCollectionViewController: UIViewController {
     var viewModel = PhotoDataViewModel()
     var collectionView: UICollectionView!
     
-    let inset: CGFloat = 10
-    let minimumLineSpacing: CGFloat = 0
-    let minimumInteritemSpacing: CGFloat = 0
-    var cellsPerRow = 0
-    
-    
     //MARK:- VIEW LIFE CYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
         
         Spinner.show()
-        
+     
         self.view.backgroundColor = .white
         gridLayout = PhotoCollectionViewFlowLayout()
-        addControls()
-        initializeValues()
+        configureControls()
         getPhotoAlbums()
     }
     
@@ -53,9 +47,9 @@ class PhotoCollectionViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let rect = self.view.frame.size
-        let width = rect.width - (ItemSpacing * 2)
+        let width = rect.width - (CollectionViewConstants.ItemSpacing * 2)
         
-        let frame =   CGRect(x: ItemSpacing, y: 0, width:width , height: UIScreen.main.bounds.size.height)
+        let frame =   CGRect(x: CollectionViewConstants.ItemSpacing, y: 0, width:width , height: UIScreen.main.bounds.size.height)
         self.collectionView.frame = frame
         self.gridLayout.prepare()
         self.gridLayout.invalidateLayout()
@@ -70,100 +64,23 @@ class PhotoCollectionViewController: UIViewController {
     }
 }
 
-    
-//MARK:- COLLECTION VIEW
-extension PhotoCollectionViewController:UICollectionViewDelegateFlowLayout,UICollectionViewDelegate{
-    
-    private func estimateFrameForText(text: String, font : UIFont) -> CGRect {
-        //we make the height arbitrarily large so we don't undershoot height in calculation
-        let height: Double = 1000
-        var marginsAndInsets = 0.0
-        if #available(iOS 11.0, *) {
-            marginsAndInsets = Double(Int((inset * 2 + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right +  25 + minimumInteritemSpacing * CGFloat(cellsPerRow - 1))))
-            
-        }else{
-            marginsAndInsets = Double((inset * 2 + 25 + minimumInteritemSpacing * CGFloat(cellsPerRow - 1)))
-        }
-        
-        let boundsWidth = Double(collectionView.bounds.size.width )
-        let divideValue = Double((CGFloat(cellsPerRow)).rounded(.down))
-        let itemWidth = ((boundsWidth - marginsAndInsets) / divideValue)
-        let size = CGSize(width: itemWidth - 120, height: height)
-        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let attributes = [NSAttributedString.Key.font: font]
-        
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: attributes, context: nil)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        guard  let rowModel = viewModel.model.rowsData?[indexPath.row] else{
-            return CGSize(width: 0, height: 0)
-        }
-        
-        let padding: CGFloat = 0
-        var titleHeight = 2.0
-        var detailHeight = 2.0
-        //estimate each cell's height
-        if let titleText = rowModel.titleStr {
-            titleHeight = Double(estimateFrameForText(text: titleText,
-                                                      font: UIFont.boldSystemFont(ofSize:18)).height + padding)
-        }
-        if let detailText = rowModel.descriptionStr {
-            detailHeight = Double(estimateFrameForText(text: detailText,
-                                                       font: UIFont.systemFont(ofSize: 14)).height + padding)
-        }
-        var totalHeight = titleHeight + detailHeight  + 40 + 5
-        if (totalHeight < 145)
-        {
-            //Take atleast image height
-            totalHeight = 145
-        }
-        var marginsAndInsets : CGFloat = 0.0
-        
-        if #available(iOS 11.0, *) {
-            marginsAndInsets = CGFloat(inset * 2 + collectionView.safeAreaInsets.left + collectionView.safeAreaInsets.right + 25 + minimumInteritemSpacing * CGFloat(cellsPerRow - 1))
-        } else {
-            // Fallback on earlier versions
-            marginsAndInsets = CGFloat(inset * 2 +  minimumInteritemSpacing * CGFloat(cellsPerRow - 1) + 25)
-        }
-        let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(cellsPerRow)).rounded(.down)
-        
-        return CGSize(width: Double(itemWidth), height: totalHeight )
-        
-    }
-    
-}
 
 //MARK:- General Methods
 extension PhotoCollectionViewController{
-    
-    func initializeValues(){
-        let model = UIDevice.current.model
-        if(model == Constants.DeviceType.iPhoneType){
-            cellsPerRow = cellPerRowIPhone
-        }
-        else{
-            cellsPerRow = cellPerRowIPad
-        }
-    }
-    
+    ///for reloading and setting the title on returing of the data from service
     func setControls(){
         self.title = viewModel.screenTitle()///Dynamic Title
         self.collectionView.reloadData()
     }
     
     ///adds the main controls as subviews
-    func addControls(){
+    func configureControls(){
         
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: gridLayout)
-        self.collectionView!.dataSource = dataSource
-        self.collectionView!.delegate = self
         self.collectionView.register(PhotoCollectionViewCell.self,
                                      forCellWithReuseIdentifier: Constants.reuseIdentifier)
         self.collectionView.showsVerticalScrollIndicator = false
         self.collectionView.backgroundColor = UIColor.white
-        
         self.view.addSubview(self.collectionView)
         
         self.refreshControl = UIRefreshControl()
@@ -196,7 +113,7 @@ extension PhotoCollectionViewController{
             case true:
                 self?.dataSource = PhotoCollectionDataSource(viewModel: self?.viewModel ?? PhotoDataViewModel())
                 self?.collectionView.dataSource = self?.dataSource
-                //self?.collectionView.reloadData()
+                self?.collectionView.delegate = self?.dataSource
                 self?.setControls()
             case false:
                 self?.showHttpErrorAlert(message: errorMsg ?? Constants.CommonErrorMsgs.generalMessage)
@@ -204,10 +121,10 @@ extension PhotoCollectionViewController{
         }
     }
     
-    ///Show the alert in case of any error being returned from the service or response
+    ///Shows the alert in case of any error being returned from the service or response
     func showHttpErrorAlert(message : String) {
         let activeVc = UIApplication.shared.keyWindow?.rootViewController
-        let action = UIAlertAction(title: NSLocalizedString("OK",comment: ""), style: UIAlertAction.Style.default, handler: nil)
+        let action = UIAlertAction(title: NSLocalizedString(Constants.okButton,comment: ""), style: UIAlertAction.Style.default, handler: nil)
         let alertController = UIAlertController(title: NSLocalizedString("",comment: ""),
                                                 message: message,
                                                 preferredStyle: UIAlertController.Style.alert)

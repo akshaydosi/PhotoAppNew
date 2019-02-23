@@ -22,7 +22,7 @@ class PhotoDataViewModel: NSObject {
             }
             
             guard let photoDict = responseDict as? NSDictionary else{
-                return completion(false,"Unable to Parse Data");
+                return completion(false,Constants.CommonErrorMsgs.generalMessage);
             }
             
             let filterData = self.filterData(photoDict: photoDict)
@@ -30,7 +30,7 @@ class PhotoDataViewModel: NSObject {
             if let _ = filterData{
                  completion(true,nil);
             }else{
-                completion(false,"Unable to Parse Data");
+                completion(false,Constants.CommonErrorMsgs.generalMessage);
             }
         }
     }
@@ -45,6 +45,17 @@ class PhotoDataViewModel: NSObject {
         return model.rowsData?.count ?? 0
     }
     
+    func getCellPerRow()->(Int){
+        var cellsPerRow = 0
+        let model = UIDevice.current.model
+        if(model == Constants.DeviceType.iPhoneType){
+            cellsPerRow = CollectionViewCellConstants.cellPerRowIPhone
+        }
+        else{
+            cellsPerRow = CollectionViewCellConstants.cellPerRowIPad
+        }
+        return cellsPerRow
+    }
     
     ///filters the response
     private func filterData(photoDict: NSDictionary)-> PhotoData?{

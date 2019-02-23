@@ -20,7 +20,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         
         let view = UIView()
         view.backgroundColor = .clear
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

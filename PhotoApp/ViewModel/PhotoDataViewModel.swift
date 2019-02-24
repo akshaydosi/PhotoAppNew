@@ -27,7 +27,7 @@ class PhotoDataViewModel: NSObject {
             
             let filterData = self.filterData(photoDict: photoDict)
             
-            if let _ = filterData{
+            if let _ = filterData?.rowsData{
                  completion(true,nil);
             }else{
                 completion(false,Constants.CommonErrorMsgs.generalMessage);
@@ -45,6 +45,8 @@ class PhotoDataViewModel: NSObject {
         return model.rowsData?.count ?? 0
     }
     
+    ///for setting the number of items in the row - 1 for iPhone
+    ///2 for iPad
     func getCellPerRow()->(Int){
         var cellsPerRow = 0
         let model = UIDevice.current.model
@@ -76,6 +78,8 @@ class PhotoDataViewModel: NSObject {
                 ($0.descriptionStr! != "") ||
                 ($0.linkStr! != "")}
             model.rowsData = filterData
+        }else{
+            model.rowsData = nil///the rowsArray is with correupted data or wrong key was used
         }
         
         return model

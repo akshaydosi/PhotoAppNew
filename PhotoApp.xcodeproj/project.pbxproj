@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		326F66BD7EBA23A9FFDDFCE5 /* Pods_PhotoAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 318F43B890F794109F85CA3C /* Pods_PhotoAppTests.framework */; };
 		63741D80B73F07D8281D3F3B /* Pods_PhotoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF341F15AA369093F303FE36 /* Pods_PhotoApp.framework */; };
+		8237ECBB2222F1BB00FF5C3A /* PhotoAppNetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8237ECBA2222F1BB00FF5C3A /* PhotoAppNetworkingTests.swift */; };
 		824ED7C521F8E14500884EC4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824ED7C421F8E14500884EC4 /* PhotoCollectionViewCell.swift */; };
 		824ED7C721F8E25500884EC4 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824ED7C621F8E25500884EC4 /* APIKeys.swift */; };
 		82626771221E8D9D008F6B55 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8262676F221E8D9D008F6B55 /* Networking.swift */; };
@@ -39,6 +40,7 @@
 		04224F49912C3827A1D9D824 /* Pods-PhotoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAppTests/Pods-PhotoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		135358F20FD64648D52F40AF /* Pods-PhotoAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PhotoAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PhotoAppTests/Pods-PhotoAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		318F43B890F794109F85CA3C /* Pods_PhotoAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PhotoAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8237ECBA2222F1BB00FF5C3A /* PhotoAppNetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAppNetworkingTests.swift; sourceTree = "<group>"; };
 		824ED7C421F8E14500884EC4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		824ED7C621F8E25500884EC4 /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
 		8262676F221E8D9D008F6B55 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 			children = (
 				82DCB82B21F7882C006ED765 /* PhotoAppTests.swift */,
 				82DCB82D21F7882C006ED765 /* Info.plist */,
+				8237ECBA2222F1BB00FF5C3A /* PhotoAppNetworkingTests.swift */,
 			);
 			path = PhotoAppTests;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8237ECBB2222F1BB00FF5C3A /* PhotoAppNetworkingTests.swift in Sources */,
 				82DCB82C21F7882C006ED765 /* PhotoAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,8 +14,9 @@ class PhotoDataViewModel: NSObject {
 
     ///fetches the photos from the networking class and gets the filtered data from
     ///the function to be returned to the UI
-    func fetchPhotos(_ completion: @escaping (Bool, String?) -> Void) {
-        Networking.getJSONData { (responseDict, error) in
+    func fetchPhotos(_ endPointURL: String,
+                     _ completion: @escaping (Bool, String?) -> Void) {
+        Networking.getJSONData(endPointURL, {(responseDict, error) in
             Spinner.hide()
             guard error == nil else {
                 return completion(false, error?.localizedDescription)
@@ -32,7 +33,7 @@ class PhotoDataViewModel: NSObject {
             } else {
                 completion(false, Constants.CommonErrorMsgs.generalMessage)
             }
-        }
+        })
     }
 
     ///returns the title of the Screen

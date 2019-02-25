@@ -32,17 +32,16 @@ class PhotoAppTests: XCTestCase {
     }
 
     ///This will run true if the fetch photos is success
-    ///will execute false case in case response/url is incorrect
-    func testFetchPhotosStatus() {
+    func testFetchPhotosSuccessStatus() {
         let waitValue = expectation(description: "FetchPhotosSuccess")
 
-        photoDataModel.fetchPhotos({ (isSuccess, _) in
+        photoDataModel.fetchPhotos(APIConfig.BaseURL, { (isSuccess, _) in
 
             switch isSuccess {
             case true:
                 XCTAssert(true, "ViewModel got successful response")
-            case false:
-                XCTAssertTrue(false, "DATA INPUT OR RESPONSE IS INCORRECT - NOT EXPECTED RESULT")
+            default:
+                print("Failed to get Response")
             }
             waitValue.fulfill()
 
@@ -55,11 +54,36 @@ class PhotoAppTests: XCTestCase {
             }
         }
     }
-
+    ///This will run true if the fetch photos is failure
+    func testFetchPhotosFailureStatus() {
+        let waitValue = expectation(description: "FetchPhotosFailure")
+        photoDataModel.fetchPhotos(URLConstants.devUrl, { (isSuccess, _) in
+            switch isSuccess {
+            case false:
+                XCTAssertTrue(false, "DATA INPUT OR RESPONSE IS INCORRECT - NOT EXPECTED RESULT")
+            default:
+                print("Failed to get Response")
+            }
+            waitValue.fulfill()
+        })
+        self.waitForExpectations(timeout: 10) { (err) in
+            if let error = err {
+                print("ERROR: \(error.localizedDescription)")
+                XCTAssertTrue(false, "ViewModel WAIT TIME FAILED")
+            }
+        }
+    }
     ///to test the validity of the BaseURL - any change will lead to data not returning or
     ///error in response
     func testRequestURL() {
         XCTAssertEqual(APIConfig.BaseURL, URLConstants.devUrl)
+    }
+    ///To check whether the Struture initialization works well with the data or not
+    func testPhotoStructInitilization() {
+        let rowData = RowsData(titleStr: "title", descriptionStr: "desc", linkStr: "link")
+        let photoDataModel = PhotoData(titleStr: "My City",
+                                       rowsData: [rowData])
+        XCTAssertEqual(photoDataModel.titleStr, "My City")
     }
 
 }

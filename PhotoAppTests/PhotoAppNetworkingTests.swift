@@ -13,23 +13,33 @@ import Alamofire
 
 class PhotoAppNetworkingTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    struct URLConstants {
+        static let devUrl = "https://dl.dropboxusercontent.com/s/2iodh4vg/facts.json"
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    ///run and test the networking call
-    func testNetworkingClass() {
+    ///for successful call with correct url
+    func testNetworkingCallSuccess() {
         let waitValue = expectation(description: "NetworkingCall")
 
-        Networking.getJSONData { (responseDict, _) in
+        Networking.getJSONData(APIConfig.BaseURL) {(responseDict, _) in
             XCTAssertNotNil(responseDict, "Expected non-nil dict")
             waitValue.fulfill()
         }
 
+        self.waitForExpectations(timeout: 10) { (err) in
+            if let error = err {
+                print("ERROR: \(error.localizedDescription)")
+                XCTAssertTrue(false, "Networking wait time failed")
+            }
+        }
+    }
+    ///for failure call with incorrect end point url
+    func testNetworkingCallFailure() {
+        let waitValue = expectation(description: "NetworkingCall")
+        Networking.getJSONData(URLConstants.devUrl) {(responseDict, _) in
+            XCTAssertNil(responseDict)
+            waitValue.fulfill()
+        }
         self.waitForExpectations(timeout: 10) { (err) in
             if let error = err {
                 print("ERROR: \(error.localizedDescription)")

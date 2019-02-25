@@ -8,20 +8,17 @@
  */
 
 import UIKit
-import SDWebImage
-import AlamofireImage
-import Alamofire
 
 enum CollectionViewConstants {
     static let ItemSpacing: CGFloat = 10.0
 }
 
 class PhotoCollectionViewController: UIViewController {
-    var refreshControl: UIRefreshControl!
-    fileprivate var dataSource: PhotoCVDataSourceNDelegate!
+    private var refreshControl: UIRefreshControl!
+    private var dataSource: PhotoCVDataSourceNDelegate!
 
-    var viewModel = PhotoDataViewModel()
-    var collectionView: UICollectionView!
+    private var viewModel = PhotoDataViewModel()
+    private var collectionView: UICollectionView!
 
     // MARK: - VIEW LIFE CYCLES
     override func viewDidLoad() {
@@ -76,12 +73,11 @@ extension PhotoCollectionViewController {
         self.refreshControl.tintColor = UIColor.red
         self.refreshControl.attributedTitle = NSAttributedString(string: Constants.pullToRefresh)
         self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        collectionView!.addSubview(refreshControl)
+        self.collectionView!.addSubview(self.refreshControl)
     }
 
     ///Called when "Refresh Control" is called
     @objc func refresh(sender: AnyObject) {
-        //DO
         getPhotoAlbums()
         stopRefresher()
     }
@@ -98,7 +94,7 @@ extension PhotoCollectionViewController {
     /// - Handles the status and accordingly shows the error message if any
     func getPhotoAlbums() {
         Spinner.show()
-        viewModel.fetchPhotos { [weak self] (status, errorMsg) in
+        viewModel.fetchPhotos (APIConfig.BaseURL, { [weak self] (status, errorMsg) in
             switch status {
             case true:
                 self?.dataSource = PhotoCVDataSourceNDelegate(viewModel: self?.viewModel ?? PhotoDataViewModel())
@@ -108,7 +104,7 @@ extension PhotoCollectionViewController {
             case false:
                 self?.showHttpErrorAlert(message: errorMsg ?? Constants.CommonErrorMsgs.generalMessage)
             }
-        }
+        })
     }
     ///for reloading and setting the title on returing of the data from service
     func setControls() {
@@ -118,11 +114,10 @@ extension PhotoCollectionViewController {
     ///Shows the alert in case of any error being returned from the service or response
     func showHttpErrorAlert(message: String) {
         let activeVc = UIApplication.shared.keyWindow?.rootViewController
-        let action = UIAlertAction(title: NSLocalizedString(Constants.okButton,
-                                                            comment: ""),
+        let action = UIAlertAction(title: Constants.okButton,
                                    style: UIAlertAction.Style.default,
                                    handler: nil)
-        let alertController = UIAlertController(title: NSLocalizedString("", comment: ""),
+        let alertController = UIAlertController(title: "Error",
                                                 message: message,
                                                 preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(action)

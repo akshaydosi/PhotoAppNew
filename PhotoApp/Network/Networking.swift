@@ -17,9 +17,10 @@ class Networking: NSObject {
     ///
     /// - returns: The request.
 
-   public static func getJSONData(_ apiRequestCompletionHandler:@escaping ResponseHandler) {
+    public static func getJSONData(_ endPointURL: String,
+                                   _ apiRequestCompletionHandler:@escaping ResponseHandler) {
 
-        guard let endPointURL = URL(string: APIConfig.BaseURL) else {
+        guard let endPointURL = URL(string: endPointURL) else {
             print("Error unwrapping URL "); return }
 
         ///Create the Alamofire request by passing the Get Request and the URL from where to fetch the same.
@@ -54,15 +55,5 @@ class Networking: NSObject {
                 apiRequestCompletionHandler(nil, error)
             }
         })
-    }
-
-    //Cancel all open requests
-    public static func cancelAllRequests() {
-        let sessionManager = Alamofire.SessionManager.default
-        sessionManager.session.getTasksWithCompletionHandler { dataTasks, uploadTasks, downloadTasks in
-            dataTasks.forEach { $0.cancel() }
-            uploadTasks.forEach { $0.cancel() }
-            downloadTasks.forEach { $0.cancel() }
-        }
     }
 }

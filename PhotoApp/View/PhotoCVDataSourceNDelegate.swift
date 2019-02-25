@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 enum CollectionViewCellConstants {
     static let cellPerRowIPhone = 1

@@ -10,7 +10,7 @@ import Foundation
 
 typealias ResponseHandler = (AnyObject?, NSError?) -> Void
 
-struct Constants{
+struct Constants {
     static let mainTitle = "title"
     static let title = "title"
     static let description = "description"
@@ -20,33 +20,31 @@ struct Constants{
     static let pullToRefresh = "Pull to refresh"
     static let placeHolderImage = "placeholderImage"
     static let okButton = "OK"
-    
-    struct DeviceType{
+
+    struct DeviceType {
         static let iPhoneType = "iPhone"
     }
 
-    struct CollectionViewPaddings{
+    struct CollectionViewPaddings {
         static let top = 10
         static let bottom = 10
         static let left = 10
         static let right = 10
-        static let imgPadding:Double = 45.0
-        static let insetsPadding:CGFloat = 25.0
-        static let marginNInsetsPadding:Int = 25
-        static let imgHeight:CGFloat = 120.0
+        static let imgPadding: Double = 45.0
+        static let insetsPadding: CGFloat = 25.0
+        static let marginNInsetsPadding: Int = 25
+        static let imgHeight: CGFloat = 120.0
 
     }
-    
-    struct CommonErrorMsgs{
+
+    struct CommonErrorMsgs {
         static let generalMessage = "Some error occured, please try again later."
     }
-    
-    struct CellFrames{
-        static let height:Double = 1000
-        static let width:Double = 355
-        static let imgHeight:Double = 145
+
+    struct CellFrames {
+        static let height: Double = 1000
+        static let width: Double = 355
+        static let imgHeight: Double = 145
     }
-    
+
 }
-
-

@@ -25,11 +25,11 @@ class PhotoAppNetworkingTests: XCTestCase {
     func testNetworkingClass() {
         let waitValue = expectation(description: "NetworkingCall")
 
-        Networking.getJSONData{ (responseDict, error) in
+        Networking.getJSONData { (responseDict, _) in
             XCTAssertNotNil(responseDict, "Expected non-nil dict")
             waitValue.fulfill()
         }
-        
+
         self.waitForExpectations(timeout: 10) { (err) in
             if let error = err {
                 print("ERROR: \(error.localizedDescription)")

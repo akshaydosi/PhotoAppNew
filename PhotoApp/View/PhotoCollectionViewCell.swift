@@ -15,15 +15,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     lazy var containerView: UIView = {
-        
+
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     lazy var photoTitle: UILabel = {
         let label = UILabel()
         label.textColor = UIColor.black
@@ -35,7 +35,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         label.backgroundColor = .clear
         return label
     }()
-    
+
     lazy var photoImgView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +43,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         imageView.backgroundColor = .clear
         return imageView
     }()
-    
+
     lazy var photoDescription: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
@@ -55,41 +55,44 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         label.backgroundColor = .clear
         return label
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 
 }
 
-extension PhotoCollectionViewCell{
-    func addViews(){
+extension PhotoCollectionViewCell {
+    func addViews() {
         backgroundColor = UIColor.white
         addSubview(cellContainerView)
         cellContainerView.addSubview(photoImgView)
         cellContainerView.addSubview(containerView)
         containerView.addSubview(photoTitle)
         containerView.addSubview(photoDescription)
- 
+
         ///Main Container View
-        cellContainerView.customAnchors(top:  self.topAnchor, left:self.leftAnchor,
-                                        bottom: self.bottomAnchor, right:self.rightAnchor, paddingTop: 10,
+        cellContainerView.customAnchors(top: self.topAnchor, left: self.leftAnchor,
+                                        bottom: self.bottomAnchor, right: self.rightAnchor, paddingTop: 10,
                                         paddingLeft: 0, paddingBottom: 10, paddingRight: 0,
                                         width: 0, height: 0, enableInsets: true)
         ///Constraints for ImageView of the Photo
         photoImgView.customAnchors(top: cellContainerView.topAnchor, left: cellContainerView.leftAnchor,
                                    bottom: nil, right: nil, paddingTop: 10, paddingLeft: 5,
-                                   paddingBottom: 0, paddingRight: 0, width:Constants.CollectionViewPaddings.imgHeight,
+                                   paddingBottom: 0, paddingRight: 0, width: Constants.CollectionViewPaddings.imgHeight,
                                    height: Constants.CollectionViewPaddings.imgHeight, enableInsets: false)
         ///Constraints for inside cell in terms of container view
         containerView.customAnchors(top: cellContainerView.topAnchor, left: self.photoImgView.rightAnchor,
-                                    bottom: cellContainerView.bottomAnchor,right:self.cellContainerView.rightAnchor, paddingTop: 10, paddingLeft: 5, paddingBottom: 0, paddingRight: 0,
-                                    width: 0, height: 0, enableInsets: false)
+                                    bottom: cellContainerView.bottomAnchor,
+                                    right: self.cellContainerView.rightAnchor,
+                                    paddingTop: 10, paddingLeft: 5, paddingBottom: 0,
+                                    paddingRight: 0, width: 0,
+                                    height: 0, enableInsets: false)
         ///Constraints for PhotoTitle of the Photo in terms of container view
         photoTitle.customAnchors(top: self.containerView.topAnchor, left: self.containerView.leftAnchor,
                                  bottom: nil, right: self.containerView.rightAnchor, paddingTop: 0,
@@ -101,7 +104,6 @@ extension PhotoCollectionViewCell{
                                        paddingLeft: 0, paddingBottom: 0, paddingRight: 0,
                                        width: 0, height: 0, enableInsets: false)
 
-        
     }
-    
+
 }

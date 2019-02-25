@@ -9,20 +9,19 @@
 import Foundation
 import Alamofire
 
+class Networking: NSObject {
 
-class Networking:NSObject{
-    
     /// Adds a handler to be called once the request has finished.
     ///
     /// - parameter apiRequestCompletionHandler: The code to be executed once the request has finished.
     ///
     /// - returns: The request.
-    
-   public static func getJSONData(_ apiRequestCompletionHandler:@escaping ResponseHandler){
-        
-        guard let endPointURL = URL(string: APIConfig.BaseURL) else{
+
+   public static func getJSONData(_ apiRequestCompletionHandler:@escaping ResponseHandler) {
+
+        guard let endPointURL = URL(string: APIConfig.BaseURL) else {
             print("Error unwrapping URL "); return }
-        
+
         ///Create the Alamofire request by passing the Get Request and the URL from where to fetch the same.
         let request = Alamofire.request(endPointURL,
                                         method: Alamofire.HTTPMethod.get,
@@ -30,23 +29,23 @@ class Networking:NSObject{
                                         encoding: JSONEncoding.default,
                                         headers: nil)
         ///handle the response from the request
-        request.responseData(completionHandler: {
-            (response) in
-            
-            switch(response.result){
+        request.responseData(completionHandler: {(response) in
+            switch response.result {
             case .success:
-                if let responseData = response.result.value{
+                if let responseData = response.result.value {
                     let dataString = String(data: responseData, encoding: String.Encoding.isoLatin1)
                     guard let modifiedData = dataString?.data(using: String.Encoding.utf8) else {
                         print("could not convert data to UTF-8 format")
                         return
                     }
-                    do{
+                    do {
                         //create an object for our JSON data and cast it as a NSDictionary
-                        if let responseJSON = try JSONSerialization.jsonObject(with: modifiedData as Data, options: .allowFragments) as? NSDictionary {
+                        if let responseJSON = try JSONSerialization.jsonObject(
+                            with: modifiedData as Data,
+                            options: .allowFragments) as? NSDictionary {
                             apiRequestCompletionHandler(responseJSON as AnyObject?, nil)
                         }
-                    }catch let error as NSError {
+                    } catch let error as NSError {
                         //Error handling
                         apiRequestCompletionHandler(nil, error)
                     }
@@ -56,7 +55,7 @@ class Networking:NSObject{
             }
         })
     }
-    
+
     //Cancel all open requests
     public static func cancelAllRequests() {
         let sessionManager = Alamofire.SessionManager.default

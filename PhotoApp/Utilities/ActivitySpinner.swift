@@ -66,7 +66,7 @@ final class ContainerView: UIView {
         return view
     }()
 
-    internal init(frameView: UIActivityIndicatorView = UIActivityIndicatorView(style: .whiteLarge)) {
+    internal init(frameView: UIActivityIndicatorView = UIActivityIndicatorView(style: .gray)) {
 
         self.spinner = frameView
         super.init(frame: CGRect.zero)
@@ -75,7 +75,7 @@ final class ContainerView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
 
-        spinner = UIActivityIndicatorView(style: .whiteLarge)
+        spinner = UIActivityIndicatorView(style: .gray)
         spinner.color = .black
 
         super.init(coder: aDecoder)

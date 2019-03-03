@@ -18,6 +18,7 @@ class PhotoAppTests: XCTestCase {
 
     struct URLConstants {
         static let devUrl = "https://dl.dropboxusercontent.com/s/2iodh4vg0eortkl/facts.json"
+        static let failUrl = "https://dl.dropboxusercontent.com/s/2iodh/facts.json"
     }
 
     override func setUp() {
@@ -57,10 +58,10 @@ class PhotoAppTests: XCTestCase {
     ///This will run true if the fetch photos is failure
     func testFetchPhotosFailureStatus() {
         let waitValue = expectation(description: "FetchPhotosFailure")
-        photoDataModel.fetchPhotos(URLConstants.devUrl, { (isSuccess, _) in
+        photoDataModel.fetchPhotos(URLConstants.failUrl, { (isSuccess, _) in
             switch isSuccess {
             case false:
-                XCTAssertTrue(false, "DATA INPUT OR RESPONSE IS INCORRECT - NOT EXPECTED RESULT")
+                XCTAssertFalse(false)
             default:
                 print("Failed to get Response")
             }
@@ -80,10 +81,9 @@ class PhotoAppTests: XCTestCase {
     }
     ///To check whether the Struture initialization works well with the data or not
     func testPhotoStructInitilization() {
-        let rowData = RowsData(titleStr: "title", descriptionStr: "desc", linkStr: "link")
-        let photoDataModel = PhotoData(titleStr: "My City",
-                                       rowsData: [rowData])
-        XCTAssertEqual(photoDataModel.titleStr, "My City")
+        let rowData = Rows(title: "title", description: "desc", imageHref: "link")
+        let photoDataModel = PhotoData(title: "My City",
+                                       rows: [rowData])
+        XCTAssertEqual(photoDataModel.title, "My City")
     }
-
 }

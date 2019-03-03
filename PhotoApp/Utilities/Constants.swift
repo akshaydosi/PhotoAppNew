@@ -11,11 +11,6 @@ import Foundation
 typealias ResponseHandler = (AnyObject?, NSError?) -> Void
 
 struct Constants {
-    static let mainTitle = "title"
-    static let title = "title"
-    static let description = "description"
-    static let imageRef = "imageHref"
-    static let rowsKey = "rows"
     static let reuseIdentifier = "PhotoCell"
     static let pullToRefresh = "Pull to refresh"
     static let placeHolderImage = "placeholderImage"

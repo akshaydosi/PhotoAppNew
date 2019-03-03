@@ -16,19 +16,19 @@ class PhotoDataViewModel: NSObject {
     ///the function to be returned to the UI
     func fetchPhotos(_ endPointURL: String,
                      _ completion: @escaping (Bool, String?) -> Void) {
-        Networking.getJSONData(endPointURL, {(responseDict, error) in
+        Networking.getJSONData(endPointURL, {(decodedData, error) in
             Spinner.hide()
             guard error == nil else {
                 return completion(false, error?.localizedDescription)
             }
 
-            guard let photoDict = responseDict as? NSDictionary else {
+            guard let parsedData = decodedData as? PhotoData else {
                 return completion(false, Constants.CommonErrorMsgs.generalMessage)
             }
 
-            let filterData = self.filterData(photoDict: photoDict)
+            self.filterParsed(data: parsedData)
 
-            if filterData?.rowsData != nil {
+            if self.model.rows != nil {
                  completion(true, nil)
             } else {
                 completion(false, Constants.CommonErrorMsgs.generalMessage)
@@ -38,12 +38,12 @@ class PhotoDataViewModel: NSObject {
 
     ///returns the title of the Screen
     func screenTitle() -> String? {
-        return model.titleStr
+        return model.title
     }
 
     //returns the count of the items to be displayed in the collectionview
     func picturesToDisplay(in section: Int) -> Int {
-        return model.rowsData?.count ?? 0
+        return model.rows?.count ?? 0
     }
 
     ///for setting the number of items in the row - 1 for iPhone
@@ -59,30 +59,18 @@ class PhotoDataViewModel: NSObject {
         return cellsPerRow
     }
 
-    ///filters the response
-    private func filterData(photoDict: NSDictionary) -> PhotoData? {
-        var array = [RowsData]()
+    ///set the main title and the rows (filters the empty dict also)
+    private func filterParsed(data: PhotoData) {
+        model.title = data.title ?? "No Title"
 
-        model.titleStr = photoDict[Constants.mainTitle] as? String ?? ""
-        if let rowArray = photoDict[Constants.rowsKey] as? [[String: Any]] {
-            for obj in rowArray {
-                var rowModel = RowsData()
-                rowModel.titleStr = obj[Constants.title] as? String ?? ""
-                rowModel.descriptionStr = obj[Constants.description] as? String ?? ""
-                rowModel.linkStr = obj[Constants.imageRef] as? String ?? ""
-                array.append(rowModel)
-
-            }
-            ///Filter the data : remove nil values from dictionaries
-            let filterData = array.filter {($0.titleStr! != "") ||
-                ($0.descriptionStr! != "") ||
-                ($0.linkStr! != "")}
-            model.rowsData = filterData
-        } else {
-            model.rowsData = nil///the rowsArray is with correupted data or wrong key was used
+        if let rowArray = data.rows {
+                    ///Filter the data : remove nil values from dictionaries
+                    let filterData = rowArray.filter {($0.title != nil) ||
+                        ($0.description != nil) ||
+                        ($0.imageHref != nil)}
+                    model.rows = filterData
+                } else {
+            model.rows = nil///the rowsArray is with correupted data or wrong key was used
         }
-
-        return model
     }
-
 }

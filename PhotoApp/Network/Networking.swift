@@ -13,7 +13,8 @@ class Networking: NSObject {
 
     /// Adds a handler to be called once the request has finished.
     ///
-    /// - parameter apiRequestCompletionHandler: The code to be executed once the request has finished.
+    /// - parameter endPointURL : the URL from where data has to be accessed
+    ///             apiRequestCompletionHandler: The code to be executed once the request has finished.
     ///
     /// - returns: The request.
 
@@ -39,13 +40,11 @@ class Networking: NSObject {
                         print("could not convert data to UTF-8 format")
                         return
                     }
-                    do {
-                        //create an object for our JSON data and cast it as a NSDictionary
-                        if let responseJSON = try JSONSerialization.jsonObject(
-                            with: modifiedData as Data,
-                            options: .allowFragments) as? NSDictionary {
-                            apiRequestCompletionHandler(responseJSON as AnyObject?, nil)
-                        }
+                    do {///since struct is decodable, we are decoding our json with the model
+                        let jsonDecoder = JSONDecoder()
+                        var decodedData = PhotoData()
+                        decodedData = try jsonDecoder.decode(PhotoData.self, from: modifiedData)
+                        apiRequestCompletionHandler(decodedData as AnyObject?, nil)
                     } catch let error as NSError {
                         //Error handling
                         apiRequestCompletionHandler(nil, error)

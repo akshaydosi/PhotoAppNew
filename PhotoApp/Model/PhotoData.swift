@@ -9,12 +9,13 @@
 
 import Foundation
 
-struct PhotoData {
-    var titleStr: String?
-    var  rowsData: [RowsData]?
+struct PhotoData: Decodable {
+    var title: String?
+    var  rows: [Rows]?
 }
-struct RowsData {
-    var titleStr: String?
-    var descriptionStr: String?
-    var linkStr: String?
+
+struct Rows: Decodable {
+    var title: String?
+    var description: String?
+    var imageHref: String?
 }

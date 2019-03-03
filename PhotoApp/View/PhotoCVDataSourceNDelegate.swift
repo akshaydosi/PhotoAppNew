@@ -41,14 +41,14 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
         // Configure the cell
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.reuseIdentifier,
                                                          for: indexPath) as? PhotoCollectionViewCell {
-            if let rowModel = viewModel.model.rowsData?[indexPath.row] {
+            if let rowModel = viewModel.model.rows?[indexPath.row] {
                 ///adding the photo title to the title of cell
-                cell.photoTitle.text = rowModel.titleStr
+                cell.photoTitle.text = rowModel.title
                 ///Assigning the Description and ImageUrls
-                let urlstr = rowModel.linkStr
-                cell.photoImgView.sd_setImage(with: URL(string: urlstr!),
+                let urlstr = rowModel.imageHref
+                cell.photoImgView.sd_setImage(with: URL(string: urlstr ?? ""),
                                               placeholderImage: UIImage(named: Constants.placeHolderImage))
-                cell.photoDescription.text = rowModel.descriptionStr
+                cell.photoDescription.text = rowModel.description
                 cell.backgroundColor = .clear
                 cell.layoutIfNeeded()
                 return cell
@@ -88,7 +88,7 @@ extension PhotoCVDataSourceNDelegate {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        guard  let rowModel = viewModel.model.rowsData?[indexPath.row] else {
+        guard  let rowModel = viewModel.model.rows?[indexPath.row] else {
             return CGSize(width: 0, height: 0)
         }
          let noOfCellInRow = viewModel.getCellPerRow()
@@ -96,12 +96,12 @@ extension PhotoCVDataSourceNDelegate {
         var titleHeight = 2.0
         var detailHeight = 2.0
         //estimate each cell's height
-        if let titleText = rowModel.titleStr {
+        if let titleText = rowModel.title {
             titleHeight = Double(estimateFrameForText(text: titleText,
                                                       font: UIFont.boldSystemFont(ofSize: 18),
                                                       collectionView: collectionView).height + padding)
         }
-        if let detailText = rowModel.descriptionStr {
+        if let detailText = rowModel.description {
             detailHeight = Double(estimateFrameForText(text: detailText,
                                                        font: UIFont.systemFont(ofSize: 14),
                                                        collectionView: collectionView).height + padding)

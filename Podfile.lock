@@ -6,7 +6,7 @@ PODS:
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
   - SwiftLint (0.27.0)
-  - TinyConstraints (3.3.0)
+  - TinyConstraints (3.3.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
@@ -28,8 +28,8 @@ SPEC CHECKSUMS:
   AlamofireImage: 78d67ccbb763d87ba44b21583d2153500a195630
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
-  TinyConstraints: 6d0e495e72372556b31a0cc9b60983d5f780ef2f
+  TinyConstraints: dbf7519aefc01ea59d62244300c7718aec68e280
 
-PODFILE CHECKSUM: 2468be1ca6808461cdfec16560f2e1e04c693fdf
+PODFILE CHECKSUM: 38254a87a630ebe301e13c7c24e3721415a0fad3
 
 COCOAPODS: 1.5.3

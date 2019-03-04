@@ -117,7 +117,7 @@ extension PhotoCollectionViewController {
         let action = UIAlertAction(title: Constants.okButton,
                                    style: UIAlertAction.Style.default,
                                    handler: nil)
-        let alertController = UIAlertController(title: "Error",
+        let alertController = UIAlertController(title: Constants.errorTitle,
                                                 message: message,
                                                 preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(action)

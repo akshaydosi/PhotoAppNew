@@ -25,7 +25,7 @@ class PhotoDataViewModel: NSObject {
             guard let parsedData = decodedData as? PhotoData else {
                 return completion(false, Constants.CommonErrorMsgs.generalMessage)
             }
-
+            ///filter the empty dictionaries
             self.filterParsed(data: parsedData)
 
             if self.model.rows != nil {
@@ -61,7 +61,7 @@ class PhotoDataViewModel: NSObject {
 
     ///set the main title and the rows (filters the empty dict also)
     private func filterParsed(data: PhotoData) {
-        model.title = data.title ?? "No Title"
+        model.title = data.title ?? Constants.noTitle
 
         if let rowArray = data.rows {
                     ///Filter the data : remove nil values from dictionaries

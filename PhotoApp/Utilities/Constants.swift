@@ -11,11 +11,13 @@ import Foundation
 typealias ResponseHandler = (AnyObject?, NSError?) -> Void
 
 struct Constants {
+    static let apiBaseURL = "API_BASE_URL_ENDPOINT"
     static let reuseIdentifier = "PhotoCell"
     static let pullToRefresh = "Pull to refresh"
     static let placeHolderImage = "placeholderImage"
     static let okButton = "OK"
-
+    static let errorTitle = "Error"
+    static let noTitle = "No Title"
     struct DeviceType {
         static let iPhoneType = "iPhone"
     }

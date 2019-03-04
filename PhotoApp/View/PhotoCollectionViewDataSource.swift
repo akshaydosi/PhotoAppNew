@@ -1,6 +1,6 @@
 /*
- FileName : PhotoCVDataSourceNDelegate
- Description : Seperating the datasource and delegate methods for the collection view
+ FileName : PhotoCollectionViewDataSource
+ Description : Seperating the datasource methods for the collection view
  Copyright : Copyright © 2019 Cognizant. All rights reserved.
  Created Date : 02/21/19
  =============================================================================
@@ -15,7 +15,7 @@ enum CollectionViewCellConstants {
     static let cellPerRowIPad = 2
 }
 
-class PhotoCVDataSourceNDelegate: NSObject, UICollectionViewDataSource,
+class PhotoCollectionViewDataSource: NSObject, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
     let inset: CGFloat = 10
@@ -59,7 +59,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 }
 
 // MARK: - COLLECTION VIEW
-extension PhotoCVDataSourceNDelegate {
+extension PhotoCollectionViewDataSource {
     ///Dynamic text size for the Title and Description
     func estimateFrameForText(text: String, font: UIFont, collectionView: UICollectionView) -> CGRect {
         let noOfCellInRow = viewModel.getCellPerRow()

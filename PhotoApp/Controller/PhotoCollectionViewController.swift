@@ -15,7 +15,7 @@ enum CollectionViewConstants {
 
 class PhotoCollectionViewController: UIViewController {
     private var refreshControl: UIRefreshControl!
-    private var dataSource: PhotoCVDataSourceNDelegate!
+    private var dataSource: PhotoCollectionViewDataSource!
 
     private var viewModel = PhotoDataViewModel()
     private var collectionView: UICollectionView!
@@ -97,7 +97,7 @@ extension PhotoCollectionViewController {
         viewModel.fetchPhotos (APIConfig.BaseURL, { [weak self] (status, errorMsg) in
             switch status {
             case true:
-                self?.dataSource = PhotoCVDataSourceNDelegate(viewModel: self?.viewModel ?? PhotoDataViewModel())
+                self?.dataSource = PhotoCollectionViewDataSource(viewModel: self?.viewModel ?? PhotoDataViewModel())
                 self?.collectionView.dataSource = self?.dataSource
                 self?.collectionView.delegate = self?.dataSource
                 self?.setControls()

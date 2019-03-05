@@ -1,6 +1,6 @@
 ///**
 /*
- FileName : PhotoAppTests
+ FileName : PhotoDataViewModelTests
  Description : Tests for the Photo App Model class
  Copyright : Copyright © 2019 Cognizant. All rights reserved.
  Created Date : 01/22/19
@@ -11,7 +11,7 @@ import XCTest
 import Alamofire
 @testable import PhotoApp
 
-class PhotoAppTests: XCTestCase {
+class PhotoDataViewModelTests: XCTestCase {
 
     var apiRequest: Networking!
     var photoDataModel: PhotoDataViewModel!
@@ -24,7 +24,6 @@ class PhotoAppTests: XCTestCase {
     override func setUp() {
         apiRequest = Networking()
         photoDataModel = PhotoDataViewModel()
-
     }
 
     override func tearDown() {
@@ -35,17 +34,9 @@ class PhotoAppTests: XCTestCase {
     ///This will run true if the fetch photos is success
     func testFetchPhotosSuccessStatus() {
         let waitValue = expectation(description: "FetchPhotosSuccess")
-
         photoDataModel.fetchPhotos(APIConfig.BaseURL, { (isSuccess, _) in
-
-            switch isSuccess {
-            case true:
-                XCTAssert(true, "ViewModel got successful response")
-            default:
-                print("Failed to get Response")
-            }
+            XCTAssertTrue(isSuccess)
             waitValue.fulfill()
-
         })
 
         self.waitForExpectations(timeout: 10) { (err) in
@@ -59,13 +50,9 @@ class PhotoAppTests: XCTestCase {
     func testFetchPhotosFailureStatus() {
         let waitValue = expectation(description: "FetchPhotosFailure")
         photoDataModel.fetchPhotos(URLConstants.failUrl, { (isSuccess, _) in
-            switch isSuccess {
-            case false:
-                XCTAssertFalse(false)
-            default:
-                print("Failed to get Response")
+            if !isSuccess {
+                waitValue.fulfill()
             }
-            waitValue.fulfill()
         })
         self.waitForExpectations(timeout: 10) { (err) in
             if let error = err {

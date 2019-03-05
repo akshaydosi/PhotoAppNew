@@ -35,7 +35,7 @@ class PhotoCollectionViewController: UIViewController {
         let frame =   CGRect(x: CollectionViewConstants.itemSpacing, y: 0,
                              width: width,
                              height: UIScreen.main.bounds.size.height)
-        self.collectionView.frame = frame
+        collectionView.frame = frame
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -55,18 +55,18 @@ extension PhotoCollectionViewController {
         self.view.backgroundColor = .white
         let layout = UICollectionViewFlowLayout()
 
-        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        self.collectionView.register(PhotoCollectionViewCell.self,
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(PhotoCollectionViewCell.self,
                                      forCellWithReuseIdentifier: Constants.reuseIdentifier)
-        self.collectionView.showsVerticalScrollIndicator = false
-        self.collectionView.backgroundColor = UIColor.white
-        self.view.addSubview(self.collectionView)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.backgroundColor = UIColor.white
+        view.addSubview(self.collectionView)
 
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.tintColor = .black
-        self.refreshControl.attributedTitle = NSAttributedString(string: Constants.pullToRefresh)
-        self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        self.collectionView!.addSubview(self.refreshControl)
+        refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .black
+        refreshControl.attributedTitle = NSAttributedString(string: Constants.pullToRefresh)
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
+        collectionView!.addSubview(self.refreshControl)
     }
 
     ///Called when "Refresh Control" is called
@@ -77,7 +77,7 @@ extension PhotoCollectionViewController {
 
     //Stop on successful return from function call
     func stopRefresher() {
-        self.refreshControl.endRefreshing()
+        refreshControl.endRefreshing()
     }
 
     /// Gets the data via the View Model which inturn requests from the network layer .

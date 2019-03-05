@@ -23,15 +23,16 @@ struct Constants {
     }
 
     struct CollectionViewPaddings {
-        static let top = 10
-        static let bottom = 10
-        static let left = 10
-        static let right = 10
+        static let small: CGFloat = 5.0
+        static let medium: CGFloat = 10.0
         static let imgPadding: Double = 45.0
         static let insetsPadding: CGFloat = 25.0
-        static let marginNInsetsPadding: Int = 25
         static let imgHeight: CGFloat = 120.0
+    }
 
+    struct FontSizes {
+        static let medium: CGFloat = 18.0
+        static let small: CGFloat = 14.0
     }
 
     struct CommonErrorMsgs {

@@ -10,20 +10,14 @@ import Foundation
 import UIKit
 import SDWebImage
 
-enum CollectionViewCellConstants {
-    static let cellPerRowIPhone = 1
-    static let cellPerRowIPad = 2
-}
-
 class PhotoCollectionViewDataSource: NSObject, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
 
-    let inset: CGFloat = 10
+    let inset: CGFloat = 20.0
     var viewModel: PhotoDataViewModel
 
     init(viewModel: PhotoDataViewModel) {
         self.viewModel = viewModel
-
     }
 
     // MARK: - UICollectionViewDataSource
@@ -32,7 +26,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.picturesToDisplay(in: section)
+        return viewModel.rowCount(in: section)
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -45,8 +39,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
                 ///adding the photo title to the title of cell
                 cell.photoTitle.text = rowModel.title
                 ///Assigning the Description and ImageUrls
-                let urlstr = rowModel.imageHref
-                cell.photoImgView.sd_setImage(with: URL(string: urlstr ?? ""),
+                cell.photoImgView.sd_setImage(with: URL(string: rowModel.imageHref ?? ""),
                                               placeholderImage: UIImage(named: Constants.placeHolderImage))
                 cell.photoDescription.text = rowModel.description
                 cell.backgroundColor = .clear
@@ -65,12 +58,12 @@ extension PhotoCollectionViewDataSource {
         let noOfCellInRow = viewModel.getCellPerRow()
         var marginsAndInsets = 0.0
         if #available(iOS 11.0, *) {
-            marginsAndInsets = Double(Int((inset * 2 + collectionView.safeAreaInsets.left
+            marginsAndInsets = Double(Int((inset + collectionView.safeAreaInsets.left
                 + collectionView.safeAreaInsets.right
                 + Constants.CollectionViewPaddings.insetsPadding)))
 
         } else {
-            marginsAndInsets = Double((inset * 2 + Constants.CollectionViewPaddings.insetsPadding))
+            marginsAndInsets = Double((inset + Constants.CollectionViewPaddings.insetsPadding))
         }
 
         let boundsWidth = Double(collectionView.bounds.size.width )
@@ -91,20 +84,19 @@ extension PhotoCollectionViewDataSource {
         guard  let rowModel = viewModel.model.rows?[indexPath.row] else {
             return CGSize(width: 0, height: 0)
         }
-         let noOfCellInRow = viewModel.getCellPerRow()
-        let padding: CGFloat = 0
-        var titleHeight = 2.0
-        var detailHeight = 2.0
+        let noOfCellInRow = viewModel.getCellPerRow()
+        var titleHeight = 2.0///arbitary values
+        var detailHeight = 2.0///arbitary values
         //estimate each cell's height
         if let titleText = rowModel.title {
             titleHeight = Double(estimateFrameForText(text: titleText,
-                                                      font: UIFont.boldSystemFont(ofSize: 18),
-                                                      collectionView: collectionView).height + padding)
+                                                      font: .boldSystemFont(ofSize: Constants.FontSizes.medium),
+                                                      collectionView: collectionView).height)
         }
         if let detailText = rowModel.description {
             detailHeight = Double(estimateFrameForText(text: detailText,
-                                                       font: UIFont.systemFont(ofSize: 14),
-                                                       collectionView: collectionView).height + padding)
+                                                       font: .systemFont(ofSize: Constants.FontSizes.small),
+                                                       collectionView: collectionView).height)
         }
         var totalHeight = titleHeight + detailHeight  + Constants.CollectionViewPaddings.imgPadding
         if totalHeight < Constants.CellFrames.imgHeight {
@@ -114,11 +106,11 @@ extension PhotoCollectionViewDataSource {
         var marginsAndInsets: CGFloat = 0.0
 
         if #available(iOS 11.0, *) {
-            marginsAndInsets = CGFloat(inset * 2 + collectionView.safeAreaInsets.left
+            marginsAndInsets = CGFloat(inset + collectionView.safeAreaInsets.left
                 + collectionView.safeAreaInsets.right + Constants.CollectionViewPaddings.insetsPadding )
         } else {
             // Fallback on earlier versions
-            marginsAndInsets = CGFloat(inset * 2 + Constants.CollectionViewPaddings.insetsPadding)
+            marginsAndInsets = CGFloat(inset + Constants.CollectionViewPaddings.insetsPadding)
         }
         let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(noOfCellInRow)).rounded(.down)
 

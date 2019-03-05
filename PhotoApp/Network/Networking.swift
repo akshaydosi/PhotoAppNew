@@ -22,7 +22,9 @@ class Networking: NSObject {
                                    _ apiRequestCompletionHandler:@escaping ResponseHandler) {
 
         guard let endPointURL = URL(string: endPointURL) else {
-            print("Error unwrapping URL "); return }
+            let error = NSError(domain: "URL Error", code: 400, userInfo: nil)
+            return apiRequestCompletionHandler(nil, error)
+        }
 
         ///Create the Alamofire request by passing the Get Request and the URL from where to fetch the same.
         let request = Alamofire.request(endPointURL,
@@ -37,8 +39,8 @@ class Networking: NSObject {
                 if let responseData = response.result.value {
                     let dataString = String(data: responseData, encoding: String.Encoding.isoLatin1)
                     guard let modifiedData = dataString?.data(using: String.Encoding.utf8) else {
-                        print("could not convert data to UTF-8 format")
-                        return
+                        let error = NSError(domain: "JSON Error", code: 400, userInfo: nil)
+                        return apiRequestCompletionHandler(nil, error)
                     }
                     do {///since struct is decodable, we are decoding our json with the model
                         let jsonDecoder = JSONDecoder()

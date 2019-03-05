@@ -9,6 +9,11 @@
 import UIKit
 import Alamofire
 
+private enum CollectionViewCellConstants {
+    static let cellPerRowIPhone = 1
+    static let cellPerRowIPad = 2
+}
+
 class PhotoDataViewModel: NSObject {
     var model = PhotoData()
 
@@ -42,7 +47,7 @@ class PhotoDataViewModel: NSObject {
     }
 
     //returns the count of the items to be displayed in the collectionview
-    func picturesToDisplay(in section: Int) -> Int {
+    func rowCount(in section: Int) -> Int {
         return model.rows?.count ?? 0
     }
 
@@ -50,8 +55,7 @@ class PhotoDataViewModel: NSObject {
     ///2 for iPad
     func getCellPerRow() -> (Int) {
         var cellsPerRow = 0
-        let model = UIDevice.current.model
-        if model == Constants.DeviceType.iPhoneType {
+        if UIDevice.current.model == Constants.DeviceType.iPhoneType {
             cellsPerRow = CollectionViewCellConstants.cellPerRowIPhone
         } else {
             cellsPerRow = CollectionViewCellConstants.cellPerRowIPad
@@ -62,9 +66,8 @@ class PhotoDataViewModel: NSObject {
     ///set the main title and the rows (filters the empty dict also)
     private func filterParsed(data: PhotoData) {
         model.title = data.title ?? Constants.noTitle
-
+        ///Filter the data : remove nil values from dictionaries
         if let rowArray = data.rows {
-                    ///Filter the data : remove nil values from dictionaries
                     let filterData = rowArray.filter {($0.title != nil) ||
                         ($0.description != nil) ||
                         ($0.imageHref != nil)}

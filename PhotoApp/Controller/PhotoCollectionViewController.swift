@@ -11,12 +11,12 @@ import UIKit
 
 enum CollectionViewConstants {
     static let ItemSpacing: CGFloat = 10.0
+    static let spacingValue: CGFloat = 2.0
 }
 
 class PhotoCollectionViewController: UIViewController {
     private var refreshControl: UIRefreshControl!
     private var dataSource: PhotoCollectionViewDataSource!
-
     private var viewModel = PhotoDataViewModel()
     private var collectionView: UICollectionView!
 
@@ -27,17 +27,11 @@ class PhotoCollectionViewController: UIViewController {
         getPhotoAlbums()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-    }
-
     ///MARK:- Orientation Support
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let rect = self.view.frame.size
-        let width = rect.width - (CollectionViewConstants.ItemSpacing * 2)
-
+        let width = rect.width - (CollectionViewConstants.ItemSpacing * CollectionViewConstants.spacingValue)
         let frame =   CGRect(x: CollectionViewConstants.ItemSpacing,
                              y: 0,
                              width: width,
@@ -70,7 +64,7 @@ extension PhotoCollectionViewController {
         self.view.addSubview(self.collectionView)
 
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.tintColor = UIColor.red
+        self.refreshControl.tintColor = .black
         self.refreshControl.attributedTitle = NSAttributedString(string: Constants.pullToRefresh)
         self.refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         self.collectionView!.addSubview(self.refreshControl)
@@ -100,20 +94,16 @@ extension PhotoCollectionViewController {
                 self?.dataSource = PhotoCollectionViewDataSource(viewModel: self?.viewModel ?? PhotoDataViewModel())
                 self?.collectionView.dataSource = self?.dataSource
                 self?.collectionView.delegate = self?.dataSource
-                self?.setControls()
+                self?.title = self?.viewModel.screenTitle()///Dynamic Title
+                self?.collectionView.reloadData()
             case false:
                 self?.showHttpErrorAlert(message: errorMsg ?? Constants.CommonErrorMsgs.generalMessage)
             }
         })
     }
-    ///for reloading and setting the title on returing of the data from service
-    func setControls() {
-        self.title = viewModel.screenTitle()///Dynamic Title
-        self.collectionView.reloadData()
-    }
+
     ///Shows the alert in case of any error being returned from the service or response
     func showHttpErrorAlert(message: String) {
-        let activeVc = UIApplication.shared.keyWindow?.rootViewController
         let action = UIAlertAction(title: Constants.okButton,
                                    style: UIAlertAction.Style.default,
                                    handler: nil)
@@ -121,6 +111,6 @@ extension PhotoCollectionViewController {
                                                 message: message,
                                                 preferredStyle: UIAlertController.Style.alert)
         alertController.addAction(action)
-        activeVc?.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
 }

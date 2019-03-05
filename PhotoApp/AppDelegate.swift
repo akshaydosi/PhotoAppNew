@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let vcController = PhotoCollectionViewController()
 
-        self.navController!.pushViewController(vcController, animated: false)
+        self.navController?.pushViewController(vcController, animated: false)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
 

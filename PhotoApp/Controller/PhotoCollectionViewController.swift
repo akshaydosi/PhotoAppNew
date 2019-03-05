@@ -10,7 +10,7 @@
 import UIKit
 
 enum CollectionViewConstants {
-    static let ItemSpacing: CGFloat = 10.0
+    static let itemSpacing: CGFloat = 10.0
     static let spacingValue: CGFloat = 2.0
 }
 
@@ -31,9 +31,8 @@ class PhotoCollectionViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let rect = self.view.frame.size
-        let width = rect.width - (CollectionViewConstants.ItemSpacing * CollectionViewConstants.spacingValue)
-        let frame =   CGRect(x: CollectionViewConstants.ItemSpacing,
-                             y: 0,
+        let width = rect.width - (CollectionViewConstants.itemSpacing * CollectionViewConstants.spacingValue)
+        let frame =   CGRect(x: CollectionViewConstants.itemSpacing, y: 0,
                              width: width,
                              height: UIScreen.main.bounds.size.height)
         self.collectionView.frame = frame

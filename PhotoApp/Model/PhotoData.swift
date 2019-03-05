@@ -11,7 +11,7 @@ import Foundation
 
 struct PhotoData: Decodable {
     var title: String?
-    var  rows: [Rows]?
+    var rows: [Rows]?
 }
 
 struct Rows: Decodable {

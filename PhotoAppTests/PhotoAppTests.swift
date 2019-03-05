@@ -82,8 +82,11 @@ class PhotoAppTests: XCTestCase {
     ///To check whether the Struture initialization works well with the data or not
     func testPhotoStructInitilization() {
         let rowData = Rows(title: "title", description: "desc", imageHref: "link")
-        let photoDataModel = PhotoData(title: "My City",
+        let photoStruct = PhotoData(title: "My City",
                                        rows: [rowData])
-        XCTAssertEqual(photoDataModel.title, "My City")
+        XCTAssertEqual(photoStruct.title, "My City")
+        if let title = self.photoDataModel.screenTitle() {
+            XCTAssertEqual(title, "About Canada")
+        }
     }
 }

@@ -15,10 +15,14 @@ enum CollectionViewConstants {
 }
 
 class PhotoCollectionViewController: UIViewController {
-    private var refreshControl: UIRefreshControl!
+    private var refreshControl = UIRefreshControl()
     private var dataSource: PhotoCollectionViewDataSource!
     private var viewModel = PhotoDataViewModel()
-    private var collectionView: UICollectionView!
+    lazy private var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let tempCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        return tempCollectionView
+    }()
 
     // MARK: - VIEW LIFE CYCLES
     override func viewDidLoad() {
@@ -53,20 +57,19 @@ extension PhotoCollectionViewController {
     ///adds the main controls as subviews
     func configureControls() {
         self.view.backgroundColor = .white
-        let layout = UICollectionViewFlowLayout()
+        //let layout = UICollectionViewFlowLayout()
 
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        //collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PhotoCollectionViewCell.self,
                                      forCellWithReuseIdentifier: Constants.reuseIdentifier)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.backgroundColor = UIColor.white
         view.addSubview(self.collectionView)
 
-        refreshControl = UIRefreshControl()
         refreshControl.tintColor = .black
         refreshControl.attributedTitle = NSAttributedString(string: Constants.pullToRefresh)
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        collectionView!.addSubview(self.refreshControl)
+        collectionView.addSubview(self.refreshControl)
     }
 
     ///Called when "Refresh Control" is called

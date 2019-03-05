@@ -90,7 +90,7 @@ extension PhotoCollectionViewController {
     /// - Handles the status and accordingly shows the error message if any
     func getPhotoAlbums() {
         Spinner.show()
-        viewModel.fetchPhotos (APIConfig.BaseURL, { [weak self] (status, errorMsg) in
+        viewModel.fetchPhotos (APIConfig.BaseURL, { [weak self] (status, message) in
             switch status {
             case true:
                 self?.dataSource = PhotoCollectionViewDataSource(viewModel: self?.viewModel ?? PhotoDataViewModel())
@@ -99,13 +99,14 @@ extension PhotoCollectionViewController {
                 self?.title = self?.viewModel.screenTitle()///Dynamic Title
                 self?.collectionView.reloadData()
             case false:
-                self?.showHttpErrorAlert(message: errorMsg ?? Constants.CommonErrorMsgs.generalMessage)
+                self?.showAlert(message: message)
             }
         })
     }
 
     ///Shows the alert in case of any error being returned from the service or response
-    func showHttpErrorAlert(message: String) {
+    func showAlert(message: String?) {
+        let message = message ?? Constants.CommonErrorMsgs.generalMessage
         let action = UIAlertAction(title: Constants.okButton,
                                    style: UIAlertAction.Style.default,
                                    handler: nil)

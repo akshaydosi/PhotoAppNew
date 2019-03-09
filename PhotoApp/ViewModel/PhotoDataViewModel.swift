@@ -21,7 +21,7 @@ class PhotoDataViewModel: NSObject {
     ///the function to be returned to the UI
     func fetchPhotos(_ endPointURL: String,
                      _ completion: @escaping (Bool, String?) -> Void) {
-        Networking.getJSONData(endPointURL, {(decodedData, error) in
+        Networking.initiateRequestFrom(endPointURL, {(decodedData, error) in
             Spinner.hide()
             guard error == nil else {
                 return completion(false, error?.localizedDescription)

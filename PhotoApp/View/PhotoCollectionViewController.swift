@@ -90,7 +90,7 @@ extension PhotoCollectionViewController {
     /// - Handles the status and accordingly shows the error message if any
     func getPhotoAlbums() {
         Spinner.show()
-        viewModel.fetchPhotos (APIConfig.BaseURL, { [weak self] (status, message) in
+        viewModel.fetchPhotos (APIConfig.baseURL, { [weak self] (status, message) in
             switch status {
             case true:
                 self?.dataSource = PhotoCollectionViewDataSource(viewModel: self?.viewModel ?? PhotoDataViewModel())

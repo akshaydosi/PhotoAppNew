@@ -34,7 +34,7 @@ class PhotoDataViewModelTests: XCTestCase {
     ///This will run true if the fetch photos is success
     func testFetchPhotosSuccessStatus() {
         let waitValue = expectation(description: "FetchPhotosSuccess")
-        photoDataModel.fetchPhotos(APIConfig.BaseURL, { (isSuccess, _) in
+        photoDataModel.fetchPhotos(APIConfig.baseURL, { (isSuccess, _) in
             XCTAssertTrue(isSuccess)
             waitValue.fulfill()
         })
@@ -64,7 +64,7 @@ class PhotoDataViewModelTests: XCTestCase {
     ///to test the validity of the BaseURL - any change will lead to data not returning or
     ///error in response
     func testRequestURL() {
-        XCTAssertEqual(APIConfig.BaseURL, URLConstants.devUrl)
+        XCTAssertEqual(APIConfig.baseURL, URLConstants.devUrl)
     }
     ///To check whether the Struture initialization works well with the data or not
     func testPhotoStructInitilization() {

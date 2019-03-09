@@ -21,7 +21,7 @@ class PhotoAppNetworkingTests: XCTestCase {
     func testNetworkingCallSuccess() {
         let waitValue = expectation(description: "NetworkingCall")
 
-        Networking.getJSONData(APIConfig.BaseURL) {(responseDict, _) in
+        Networking.initiateRequestFrom(APIConfig.baseURL) {(responseDict, _) in
             XCTAssertNotNil(responseDict, "Expected non-nil dict")
             waitValue.fulfill()
         }
@@ -36,7 +36,7 @@ class PhotoAppNetworkingTests: XCTestCase {
     ///for failure call with incorrect end point url
     func testNetworkingCallFailure() {
         let waitValue = expectation(description: "NetworkingCall")
-        Networking.getJSONData(URLConstants.devUrl) {(responseDict, _) in
+        Networking.initiateRequestFrom(URLConstants.devUrl) {(responseDict, _) in
             XCTAssertNil(responseDict)
             waitValue.fulfill()
         }

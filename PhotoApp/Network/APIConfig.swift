@@ -9,10 +9,10 @@
 import Foundation
 
 struct APIConfig {
-    static var BaseURL: String {
-        return endpoint
+    static var baseURL: String {
+        return endPoint
     }
-    static var endpoint: String {
+    static var endPoint: String {
             if let path = Bundle.main.path(forResource: "Info", ofType: "plist") {
                 if let dict = NSDictionary(contentsOfFile: path) {
                     return dict[Constants.apiBaseURL] as? String ?? ""

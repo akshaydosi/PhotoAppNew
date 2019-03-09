@@ -18,8 +18,8 @@ class Networking: NSObject {
     ///
     /// - returns: The request.
 
-    public static func getJSONData(_ endPointURL: String,
-                                   _ apiRequestCompletionHandler:@escaping ResponseHandler) {
+    public static func initiateRequestFrom(_ endPointURL: String,
+                                           _ apiRequestCompletionHandler:@escaping ResponseHandler) {
 
         guard let endPointURL = URL(string: endPointURL) else {
             let error = NSError(domain: "URL Error", code: 400, userInfo: nil)

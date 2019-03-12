@@ -20,6 +20,7 @@ struct Constants {
     static let noTitle = "No Title"
     struct DeviceType {
         static let iPhoneType = "iPhone"
+        static let iPad = "iPad"
     }
 
     struct CollectionViewPaddings {

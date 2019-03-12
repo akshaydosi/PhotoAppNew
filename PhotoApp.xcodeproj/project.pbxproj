@@ -45,6 +45,11 @@
 		828B560D21F9FEE5007C5B46 /* ActivitySpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828B560B21F9FEE5007C5B46 /* ActivitySpinner.swift */; };
 		828B560E21F9FEE5007C5B46 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828B560C21F9FEE5007C5B46 /* Constants.swift */; };
 		82B0AB1021F8484B00291F9F /* PhotoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B0AB0F21F8484B00291F9F /* PhotoData.swift */; };
+		82C1E1002237AC1800395C8C /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1E0FF2237AC1800395C8C /* RequestProtocol.swift */; };
+		82C1E101223831BE00395C8C /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1E0FF2237AC1800395C8C /* RequestProtocol.swift */; };
+		82C1E102223831BF00395C8C /* RequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C1E0FF2237AC1800395C8C /* RequestProtocol.swift */; };
+		82C1E103223831DD00395C8C /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB06E222E87B100A328A0 /* PhotoCollectionViewController.swift */; };
+		82C1E104223831DE00395C8C /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB06E222E87B100A328A0 /* PhotoCollectionViewController.swift */; };
 		82DCB81721F7882B006ED765 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCB81621F7882B006ED765 /* AppDelegate.swift */; };
 		82DCB81E21F7882C006ED765 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82DCB81D21F7882C006ED765 /* Assets.xcassets */; };
 		82DCB82121F7882C006ED765 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DCB81F21F7882C006ED765 /* LaunchScreen.storyboard */; };
@@ -87,6 +92,7 @@
 		828B560B21F9FEE5007C5B46 /* ActivitySpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySpinner.swift; sourceTree = "<group>"; };
 		828B560C21F9FEE5007C5B46 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		82B0AB0F21F8484B00291F9F /* PhotoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoData.swift; sourceTree = "<group>"; };
+		82C1E0FF2237AC1800395C8C /* RequestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestProtocol.swift; sourceTree = "<group>"; };
 		82DCB81321F7882B006ED765 /* PhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82DCB81621F7882B006ED765 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82DCB81D21F7882C006ED765 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -200,6 +206,7 @@
 		824ED7B421F8CC4200884EC4 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				82C1E0FF2237AC1800395C8C /* RequestProtocol.swift */,
 				82EC8E852223C6A800340F14 /* APIConfig.swift */,
 				8262676F221E8D9D008F6B55 /* Networking.swift */,
 			);
@@ -705,6 +712,8 @@
 				822C00CC222D5F8C002854AF /* ActivitySpinner.swift in Sources */,
 				822C0116222D8105002854AF /* PhotoCollectionViewDataSource.swift in Sources */,
 				822C00CE222D5F8C002854AF /* AppDelegate.swift in Sources */,
+				82C1E101223831BE00395C8C /* RequestProtocol.swift in Sources */,
+				82C1E103223831DD00395C8C /* PhotoCollectionViewController.swift in Sources */,
 				822C00CF222D5F8C002854AF /* PhotoCollectionViewCell.swift in Sources */,
 				822C00D0222D5F8C002854AF /* PhotoData.swift in Sources */,
 				822C00D1222D5F8C002854AF /* Constants.swift in Sources */,
@@ -722,6 +731,8 @@
 				822C00E7222D5FEF002854AF /* ActivitySpinner.swift in Sources */,
 				822C0117222D8105002854AF /* PhotoCollectionViewDataSource.swift in Sources */,
 				822C00E9222D5FEF002854AF /* AppDelegate.swift in Sources */,
+				82C1E102223831BF00395C8C /* RequestProtocol.swift in Sources */,
+				82C1E104223831DE00395C8C /* PhotoCollectionViewController.swift in Sources */,
 				822C00EA222D5FEF002854AF /* PhotoCollectionViewCell.swift in Sources */,
 				822C00EB222D5FEF002854AF /* PhotoData.swift in Sources */,
 				822C00EC222D5FEF002854AF /* Constants.swift in Sources */,
@@ -736,6 +747,7 @@
 				82626771221E8D9D008F6B55 /* Networking.swift in Sources */,
 				82EC8E862223C6A800340F14 /* APIConfig.swift in Sources */,
 				82626777221EC09F008F6B55 /* PhotoDataViewModel.swift in Sources */,
+				82C1E1002237AC1800395C8C /* RequestProtocol.swift in Sources */,
 				828B560D21F9FEE5007C5B46 /* ActivitySpinner.swift in Sources */,
 				822C0115222D8105002854AF /* PhotoCollectionViewDataSource.swift in Sources */,
 				82DCB81721F7882B006ED765 /* AppDelegate.swift in Sources */,

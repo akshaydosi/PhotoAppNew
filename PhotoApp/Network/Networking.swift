@@ -9,23 +9,20 @@
 import Foundation
 import Alamofire
 
-class Networking: NSObject {
-
+class Networking: RequestProtocol {
+    ///Implement the required protocol method - calls the alamofire request to fetch the data
     /// Adds a handler to be called once the request has finished.
     ///
     /// - parameter endPointURL : the URL from where data has to be accessed
     ///             apiRequestCompletionHandler: The code to be executed once the request has finished.
     ///
     /// - returns: The request.
-
-    public static func initiateRequestFrom(_ endPointURL: String,
-                                           _ apiRequestCompletionHandler:@escaping ResponseHandler) {
-
+    func initiateRequestFrom(_ endPointURL: String,
+                             _ apiRequestCompletionHandler:@escaping (Result<PhotoData>) -> Void) {
         guard let endPointURL = URL(string: endPointURL) else {
             let error = NSError(domain: "URL Error", code: 400, userInfo: nil)
-            return apiRequestCompletionHandler(nil, error)
+            return apiRequestCompletionHandler(.failure(error))
         }
-
         ///Create the Alamofire request by passing the Get Request and the URL from where to fetch the same.
         let request = Alamofire.request(endPointURL,
                                         method: Alamofire.HTTPMethod.get,
@@ -40,20 +37,20 @@ class Networking: NSObject {
                     let dataString = String(data: responseData, encoding: String.Encoding.isoLatin1)
                     guard let modifiedData = dataString?.data(using: String.Encoding.utf8) else {
                         let error = NSError(domain: "JSON Error", code: 400, userInfo: nil)
-                        return apiRequestCompletionHandler(nil, error)
+                        return apiRequestCompletionHandler(.failure(error))
                     }
                     do {///since struct is decodable, we are decoding our json with the model
                         let jsonDecoder = JSONDecoder()
                         var decodedData = PhotoData()
                         decodedData = try jsonDecoder.decode(PhotoData.self, from: modifiedData)
-                        apiRequestCompletionHandler(decodedData as AnyObject?, nil)
+                        apiRequestCompletionHandler(.success(decodedData))
                     } catch let error as NSError {
                         //Error handling
-                        apiRequestCompletionHandler(nil, error)
+                        apiRequestCompletionHandler(.failure(error))
                     }
                 }
             case .failure(let error as NSError):
-                apiRequestCompletionHandler(nil, error)
+                apiRequestCompletionHandler(.failure(error))
             }
         })
     }

@@ -15,9 +15,9 @@ enum CollectionViewConstants {
 }
 
 class PhotoCollectionViewController: UIViewController {
-    private var refreshControl = UIRefreshControl()
+    private let refreshControl = UIRefreshControl()
     private var dataSource: PhotoCollectionViewDataSource!
-    private var viewModel = PhotoDataViewModel()
+    private let viewModel = PhotoDataViewModel(apiRequester: Networking())
     lazy private var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let tempCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -91,15 +91,17 @@ extension PhotoCollectionViewController {
     func getPhotoAlbums() {
         Spinner.show()
         viewModel.fetchPhotos (APIConfig.baseURL, { [weak self] (status, message) in
-            switch status {
-            case true:
-                self?.dataSource = PhotoCollectionViewDataSource(viewModel: self?.viewModel ?? PhotoDataViewModel())
-                self?.collectionView.dataSource = self?.dataSource
-                self?.collectionView.delegate = self?.dataSource
-                self?.title = self?.viewModel.screenTitle()///Dynamic Title
-                self?.collectionView.reloadData()
-            case false:
-                self?.showAlert(message: message)
+            if let `self` = self {
+                switch status {
+                case true:
+                    self.dataSource = PhotoCollectionViewDataSource(viewModel: self.viewModel)
+                    self.collectionView.dataSource = self.dataSource
+                    self.collectionView.delegate = self.dataSource
+                    self.title = self.viewModel.screenTitle()///Dynamic Title
+                    self.collectionView.reloadData()
+                case false:
+                    self.showAlert(message: message)
+                }
             }
         })
     }

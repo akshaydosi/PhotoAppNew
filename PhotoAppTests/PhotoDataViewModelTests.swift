@@ -23,7 +23,7 @@ class PhotoDataViewModelTests: XCTestCase {
 
     override func setUp() {
         apiRequest = Networking()
-        photoDataModel = PhotoDataViewModel()
+        photoDataModel = PhotoDataViewModel(apiRequester: apiRequest)
     }
 
     override func tearDown() {
@@ -31,7 +31,7 @@ class PhotoDataViewModelTests: XCTestCase {
         photoDataModel = nil
     }
 
-    ///This will run true if the fetch photos is success
+    ///This will run true if the fetch photos is success : actual service call
     func testFetchPhotosSuccessStatus() {
         let waitValue = expectation(description: "FetchPhotosSuccess")
         photoDataModel.fetchPhotos(APIConfig.baseURL, { (isSuccess, _) in
@@ -46,6 +46,7 @@ class PhotoDataViewModelTests: XCTestCase {
             }
         }
     }
+
     ///This will run true if the fetch photos is failure
     func testFetchPhotosFailureStatus() {
         let waitValue = expectation(description: "FetchPhotosFailure")
@@ -74,6 +75,14 @@ class PhotoDataViewModelTests: XCTestCase {
         XCTAssertEqual(photoStruct.title, "My City")
         if let title = self.photoDataModel.screenTitle() {
             XCTAssertEqual(title, "About Canada")
+        }
+    }
+    ///to test the number of rows being returned for the particular device
+    func testRowsCount() {
+        if UIDevice.current.model == Constants.DeviceType.iPhoneType {
+            XCTAssertEqual(photoDataModel.getCellPerRow(), 1)
+        } else if UIDevice.current.model == Constants.DeviceType.iPad {
+                XCTAssertEqual(photoDataModel.getCellPerRow(), 2)
         }
     }
 }

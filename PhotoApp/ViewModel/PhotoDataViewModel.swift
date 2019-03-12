@@ -14,31 +14,37 @@ private enum CollectionViewCellConstants {
     static let cellPerRowIPad = 2
 }
 
-class PhotoDataViewModel: NSObject {
+class PhotoDataViewModel {
     var model = PhotoData()
-
+    private let networking: RequestProtocol
+    init(apiRequester: RequestProtocol) {
+        self.networking = apiRequester
+    }
     ///fetches the photos from the networking class and gets the filtered data from
     ///the function to be returned to the UI
     func fetchPhotos(_ endPointURL: String,
                      _ completion: @escaping (Bool, String?) -> Void) {
-        Networking.initiateRequestFrom(endPointURL, {(decodedData, error) in
+        networking.initiateRequestFrom(endPointURL) { (result) in
             Spinner.hide()
-            guard error == nil else {
-                return completion(false, error?.localizedDescription)
-            }
-
-            guard let parsedData = decodedData as? PhotoData else {
-                return completion(false, Constants.CommonErrorMsgs.generalMessage)
-            }
-            ///filter the empty dictionaries
-            self.filterParsed(data: parsedData)
-
-            if self.model.rows != nil {
-                 completion(true, nil)
+            if result.isSuccess {
+                guard let parsedData = result.value else {
+                    return completion(false, Constants.CommonErrorMsgs.generalMessage)
+                }
+                ///filter the empty dictionaries
+                self.filterParsed(data: parsedData)
+                if self.model.rows != nil {
+                    completion(true, nil)
+                } else {
+                    completion(false, Constants.CommonErrorMsgs.generalMessage)
+                }
             } else {
-                completion(false, Constants.CommonErrorMsgs.generalMessage)
+                if let error = result.error {
+                    completion(false, error.localizedDescription)
+                } else {
+                    completion(false, Constants.CommonErrorMsgs.generalMessage)
+                }
             }
-        })
+        }
     }
 
     ///returns the title of the Screen
